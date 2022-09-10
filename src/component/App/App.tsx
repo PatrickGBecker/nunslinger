@@ -3,6 +3,7 @@ import titleImage from '../../Assets/Backgrounds/cathedral.jpeg'
 import { Route, Link } from 'react-router-dom';
 import fetchApiData from '../fetch/fetchApiData';
 import Missions from '../Missions/Missions';
+import Game from '../Game/Game';
 import './App.css';
 
 console.log(fetchApiData())
@@ -30,6 +31,9 @@ class App extends Component<Props> {
           </Route>
           <Route exact path='/missions'>
            <Missions />
+          </Route>
+          <Route exact path='/game'>
+            <Game />
           </Route>
     
       </div>
