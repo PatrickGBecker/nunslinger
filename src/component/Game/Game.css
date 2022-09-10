@@ -5,3 +5,8 @@
 .enemy-health-bar {
     border: 1px solid black;
 }
+
+.trigger-button {
+    height: 5rem;
+    width: 5rem;
+}
