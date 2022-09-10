@@ -1,0 +1,16 @@
+.missions-container {
+    display: flex;
+}
+
+.confessional-image {
+    z-index: -5;
+    position: absolute;
+}
+
+.sister-textbox {
+    border: 2px solid black;
+}
+
+.father-textbox {
+    border: 2px solid black;
+}
