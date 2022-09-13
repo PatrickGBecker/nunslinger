@@ -6,7 +6,31 @@
     border: 1px solid black;
 }
 
+.health-bar-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
 .trigger-button {
     height: 5rem;
     width: 5rem;
+}
+
+.game {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+@font-face {
+    font-family: Imported;
+    src: url(../../Assets/Fonts/angelWish.ttf)
+  }
+
+.next-mission-button, .back-to-main-page {
+    font-family: Imported;
+    font-size: 75px;
 }

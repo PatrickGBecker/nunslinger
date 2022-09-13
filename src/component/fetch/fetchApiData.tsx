@@ -1,4 +1,4 @@
-const fetchApiData = () => {
+const fetchApiData = async(): Promise<any> => {
     return fetch(`http://calapi.inadiutorium.cz/api/v0/en/calendars/general-en/today`)
     .then(response => {
         if (!response.ok) {

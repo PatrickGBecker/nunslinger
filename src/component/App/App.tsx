@@ -1,41 +1,57 @@
 import React, { Component } from 'react';
 import titleImage from '../../Assets/Backgrounds/cathedral.jpeg'
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import fetchApiData from '../fetch/fetchApiData';
 import Missions from '../Missions/Missions';
 import Game from '../Game/Game';
 import './App.css';
 
-console.log(fetchApiData())
+interface IAppProps {
+  celebration: string
+};
 
-type Props = {};
+interface IState {
+  celebration: string
+}
 
-
-class App extends Component<Props> {
-  constructor(props: Props) {
+class App extends React.Component<IAppProps, IState> {
+  constructor(props: IAppProps) {
     super(props)
+    this.state = {
+      celebration: ''
+    }
   }
 
+  componentDidMount = () => {
+    fetchApiData()
+    .then(data => {
+      this.setState({celebration: data.celebrations[0].title as string})
+    })
+    // .then(data => console.log(data.celebrations[1].title))
+    .catch(err => console.log(err))
+  }
 
   render() {
     return (
       <div className='App'>
+       
           <Route exact path='/' >
-            <section className='title-page'>'
-              <img className='title-image' src={titleImage} alt='A creepy view of a cathedral'/>
-              <h1 className='main-title'>NUNSLINGER</h1>
-              <Link to='/missions'>
-                <button className='play-game-button'>Confess Your Sins</button>
-              </Link>
-            </section>
+          <div className='title-page' style={{backgroundImage: `url(${titleImage}`}}>
+            <h1 className='main-title'>NUNSLINGER</h1>
+            <Link to='/missions'>
+              <button className='play-game-button'>Confess Your Sins</button>
+            </Link>
+          </div>
           </Route>
+
           <Route exact path='/missions'>
            <Missions />
           </Route>
+
           <Route exact path='/game'>
-            <Game />
+            <Game celebration={this.state.celebration}/>
           </Route>
-    
+        
       </div>
     );
 
