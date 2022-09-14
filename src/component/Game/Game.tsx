@@ -5,8 +5,9 @@ import Player from '../Characters/Player';
 import Enemy from '../Characters/Enemy';
 import gunTrigger from '../../Assets/Models/trigger.png'
 import gamePage from '../../Assets/Backgrounds/battlePage.jpeg'
-import '../../Assets/Music/testMusic.mp3';
 import './Game.css';
+// import HealthBar from '../HealthBar/HealthBar'
+const music = require('../../Assets/Music/testMusic.mp3');
 
 interface IAppProps {
     celebration: string
@@ -39,11 +40,12 @@ class Game extends React.Component<IAppProps> {
             <section className='game' style={{backgroundImage: `url(${gamePage}`}}>
                 <ReactPlayer
                     className='music-player'
-                    url={'../../Assets/Music/testMusic.mp3'}
+                    url={music}
                     width='0vw'
                     height='0vh'
-                    volume={0.3}
+                    volume={0.5}
                     loop={true}
+                    playing={true}
                 />
 
                 <h1>{this.props.celebration}</h1>
