@@ -25,9 +25,9 @@ class App extends React.Component<IAppProps, IState> {
   componentDidMount = () => {
     fetchApiData()
     .then(data => {
-      this.setState({celebration: data.celebrations[0].title as string})
+      this.setState({celebration: data.celebrations[0].title})
     })
-    // .then(data => console.log(data.celebrations[1].title))
+    // .then(data => console.log(data))
     .catch(err => console.log(err))
   }
 
