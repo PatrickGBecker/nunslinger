@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Router, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import Player from '../Characters/Player';
 import Enemy from '../Characters/Enemy';
@@ -9,56 +9,35 @@ import './Game.css';
 // import HealthBar from '../HealthBar/HealthBar'
 const music = require('../../Assets/Music/testMusic.mp3');
 
-interface IAppProps {
-    celebration: string
-  };
+const Game = () => {
 
-class Game extends React.Component<IAppProps> {
-    constructor(props: IAppProps) {
-        super(props)
+const [celebration, setCelebration] = useState<string>('')
 
-        this.state = {
-            missionCount: 0,
-            gameCount: 0,
-            playerHealth: 5,
-            enemyHealth: 5,
-            playerShotFirst: false,
-            enemyShotFirst: false,
-            celebration: ''
-        }
-    }
-
-    // handleChange = () => {
-    //     return (
-           
-    //     )
-    // }
-
-    render() {
-        
-        return (
-            <section className='game' style={{backgroundImage: `url(${gamePage}`}}>
+    return (
+        <div className="game-background">
+            <section className='game' style={{ backgroundImage: `url(${gamePage}` }}>
                 <ReactPlayer
                     className='music-player'
                     url={music}
                     width='0vw'
                     height='0vh'
-                    volume={0.5}
+                    volume={0.1}
                     loop={true}
                     playing={true}
                 />
 
-                <h1>{this.props.celebration}</h1>
+                <h1></h1>
 
                 <div className='health-bar-container'>
                     <div className='player-health-bar'>💃</div>
                     <div className='enemy-health-bar'>😈</div>
                 </div>
 
-                <img className='trigger-button' src={gunTrigger} alt='gun trigger avatar'/>
-
-                <Player />
-                <Enemy />
+                <img className='trigger-button' src={gunTrigger} alt='gun trigger avatar' />
+                <div className="model-container">
+                    <Player />
+                    <Enemy />
+                </div>
                 <div className='button-style'>
                     <Link to='/missions'>
                         <button className='next-mission-button'>Next Mission</button>
@@ -69,9 +48,9 @@ class Game extends React.Component<IAppProps> {
                     </Link>
                 </div>
             </section>
-        )
-    }
-    
+        </div>
+    )
 }
+
 
 export default Game;

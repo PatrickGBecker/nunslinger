@@ -1,48 +1,35 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import titleImage from '../../Assets/Backgrounds/cathedral.jpeg'
-import { Route, Link, Switch } from 'react-router-dom';
-import fetchApiData from '../fetch/fetchApiData';
+import { Route, Link } from 'react-router-dom';
 import Missions from '../Missions/Missions';
+import fetchApiData from '../fetch/fetchApiData';
 import Game from '../Game/Game';
-
 import './App.css';
 
-interface IAppProps {
-  celebration: string
-};
+const App = () => {
 
-interface IState {
-  celebration: string
-}
+const [celebration, setCelebration] = useState<string>('')
 
-class App extends React.Component<IAppProps, IState> {
-  constructor(props: IAppProps) {
-    super(props)
-    this.state = {
-      celebration: ''
-    }
-  }
-
-  componentDidMount = () => {
-    fetchApiData()
+useEffect(() => {
+  fetchApiData()
     .then(data => {
-      this.setState({celebration: data.celebrations[0].title})
+      console.log("data: ", data)
+      setCelebration( data.celebrations[0].title )
     })
     // .then(data => console.log(data))
     .catch(err => console.log(err))
-  }
+}, [])
 
-  render() {
     return (
       <div className='App'>
        
           <Route exact path='/' >
-          <div className='title-page' style={{backgroundImage: `url(${titleImage}`}}>
-            <h1 className='main-title'>NUNSLINGER</h1>
-            <Link to='/missions'>
-              <button className='play-game-button'>Confess Your Sins</button>
-            </Link>
-          </div>
+            <div className='title-page' style={{backgroundImage: `url(${titleImage}`}}>
+              <h1 className='main-title'>NUNSLINGER</h1>
+              <Link to='/missions'>
+                <button className='play-game-button'>Confess Your Sins</button>
+              </Link>
+            </div>
           </Route>
 
           <Route exact path='/missions'>
@@ -50,13 +37,12 @@ class App extends React.Component<IAppProps, IState> {
           </Route>
 
           <Route exact path='/game'>
-            <Game celebration={this.state.celebration}/>
+            <Game celebration={celebration}/>
           </Route>
         
       </div>
     );
-
   }
-}
+
 
 export default App;

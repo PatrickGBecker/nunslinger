@@ -33,10 +33,13 @@
 
 
 .DialogWindow {
+    position: absolute;
+    margin-left: 35%;
     background-color: #e2b27e;
     border: solid;
     border-image: "../Assets/Background/borderbox.png" 28 / 10px 10px 10px 10px stretch;
     padding: 15px;
+    width: 30vw;
 }
 
 .DialogTitle {
