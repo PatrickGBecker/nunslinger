@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import Player from '../Characters/Player';
@@ -9,9 +9,49 @@ import './Game.css';
 // import HealthBar from '../HealthBar/HealthBar'
 const music = require('../../Assets/Music/testMusic.mp3');
 
-const Game = () => {
+interface Props{
+    celebration: string
+}
 
-const [celebration, setCelebration] = useState<string>('')
+const Game = (props: Props) => {
+
+const [instructions, setInstructions] = useState<any>(false)
+const [missionCount, setMissionCount] = useState<number>(0)
+const [gameCount, setGameCount] = useState<number>(0)
+const [shotFirst, setShotFirst] = useState<boolean>(false)
+let gameInstructions:any
+
+// const setTimeout(() => {
+    
+// }, timeout);
+
+
+const hideInstructions = () => {
+    setInstructions(false)
+}
+
+useEffect(() => {
+    if (gameCount === 0){
+        setInstructions(true)
+    }
+}, [])
+
+const viewInstructions = () => {
+    
+    if (gameCount === 0 && instructions === true) {
+        return (
+            <div className="game-instructions">
+                <h1>instructions go here</h1>
+                <button className='dismiss-instructions-button' onClick={hideInstructions}>Less reading, more shooting</button>
+            </div>
+        )
+    } else {
+        return null;
+    }
+}
+
+//save it as a variable that only renders the div if both conditions are met, put the instructions in the useeffect div
+
 
     return (
         <div className="game-background">
@@ -46,6 +86,8 @@ const [celebration, setCelebration] = useState<string>('')
                     <Link to='/'>
                         <button className='back-to-main-page'>Retire from Hunting?</button>
                     </Link>
+                    {viewInstructions()}
+                  
                 </div>
             </section>
         </div>
