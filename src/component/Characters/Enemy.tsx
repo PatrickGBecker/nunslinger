@@ -12,6 +12,12 @@ import DemonSpirit from "../../Assets/Models/Demon-Spirit.png";
 const Enemy = () => {
 
 const [enemyImage, setImage] = useState<string>(ForwardPriest)
+const [isPriest, setIsPriest] = useState<boolean>(true)
+const [isBishop, setIsBishop] = useState<boolean>(false)
+const [isCardinal, setIsCardinal] = useState<boolean>(false)
+const [isPope, setIsPope] = useState<boolean>(false)
+
+//make function that checks game level and selects the enemy accordingly, make it then assign models and fire times accordingly as well
 
     const changeImage = () => {
         if (enemyImage !== Shooting1Priest) {
@@ -21,10 +27,39 @@ const [enemyImage, setImage] = useState<string>(ForwardPriest)
         }
     }
 
+    interface IFireTimes {
+        priestFireTimes: number[]
+        bishopFireTimes: number[]
+        cardinalFireTimes: number[]
+        popeFireTimes: number[]
+    }
+
+    const enemyFireTimes: IFireTimes = {
+        priestFireTimes: [1700, 2500],
+        bishopFireTimes: [1500, 2000],
+        cardinalFireTimes: [1300, 1750],
+        popeFireTimes: [1100, 1300]
+    }
+
+    interface IEnemyModels {
+        priestModels: any[]
+        bishopModels: any[]
+        cardinalModels: any[]
+        popeModels: any[]
+    }
+
+    const enemyModels: IEnemyModels = {
+        priestModels: ['forward', 'shooting1', 'shooting2', 'hit', 'dying', 'revived'],
+        bishopModels: ['forward', 'shooting1', 'shooting2', 'hit', 'dying', 'revived'],
+        cardinalModels: ['forward', 'shooting1', 'shooting2', 'hit', 'dying', 'revived'],
+        popeModels: ['forward', 'shooting1', 'shooting2', 'hit', 'dying', 'revived']
+    }
+
+
     return (
         <div className="right-side">
             <div className="health-div">
-                <EnemyHealthBar />
+                <EnemyHealthBar/>
             </div>
             <div className="enemy-image">
                 <img src={enemyImage} onClick={changeImage} />

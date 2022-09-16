@@ -41,3 +41,17 @@
     display: flex;
     flex-direction: row;
 }
+
+.fire-container {
+    border: none;
+}
+
+.fire-indicator {
+    
+    height: 20vh;
+    width: 20vw;
+}
+
+/* .hidden {
+    display:none
+} */
