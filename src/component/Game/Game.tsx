@@ -25,7 +25,8 @@ const [fireImage, setFireImage] = useState<string>('')
 const [fireIndicatorDate, setFireIndicatorDate] = useState<number>(0)
 const [enemyShotDate, setEnemyShotDate] = useState<number>(0)
 const [playerShotDate, setPlayerShotDate] = useState<number>(0)
-
+const [playerHealth, setPlayerHealth] = useState<number>(100)
+const [enemyHealth, setEnemyHealth] = useState<number>(100)
 
 
 const hideInstructions = () => {
@@ -50,6 +51,8 @@ const startTurn = () => {
     enemyShoot()
     capturePlayerShot()
     compareShots()
+    shotFirstHitCheck()
+    shotSecondHitCheck()
 }
 
 const closeInstructionsStartGame = () => {
@@ -120,16 +123,55 @@ const compareShots = () => {
     }
 }
 
-const shotSecondHitCheck = () => {
-    let hitRoll = shotRandomizer(0, 3)
-    if (hitRoll === 3) {
-        //decrement hp bar by 20
+
+const shotFirstHitCheck = () => {
+    const playerMinusTwenty = playerHealth - 20 
+    const enemyMinusTwenty = enemyHealth - 20 
+    if (playerShotFirst === true) {
+        setEnemyHealth(enemyMinusTwenty)
+    } else if (enemyShotFirst === true) {
+        setPlayerHealth(playerMinusTwenty)
     }
 }
 
-Add enemyShoot, capturePlayerShot, compareShots, shotSecondHitCheck functions and relevant pieces of state 
+const shotSecondHitCheck = () => {
+    const playerMinusTwenty = playerHealth - 20
+    const enemyMinusTwenty = enemyHealth - 20 
+    let hitRoll = shotRandomizer(0, 3)
+    if (hitRoll > 2 && playerShotFirst === false) {
+        setEnemyHealth(enemyMinusTwenty)
+    } else if (hitRoll > 2 && enemyShotFirst === false) {
+        setPlayerHealth(playerMinusTwenty)
+    }
+}
+
+// Add enemyShoot, capturePlayerShot, compareShots, shotSecondHitCheck functions and relevant pieces of state 
 
 //save it as a variable that only renders the div if both conditions are met, put the instructions in the useeffect div
+
+/*
+
+
+ 
+model healthbars decreases when model is hit.
+model are hit once
+if health bar decreases, model variation changes.
+ 
+const changeHealthBar = () => {
+if (players hit is faster than enemys hit) {
+       players healthBar.value -= 20
+       changeVariation()
+   }
+}
+ 
+const resetHealthBar = () => {
+   if (gameCount === 0) {
+   then healthBar('')
+   }
+}
+ 
+*/
+
 
     return (
         <div className="game-background">
@@ -147,8 +189,12 @@ Add enemyShoot, capturePlayerShot, compareShots, shotSecondHitCheck functions an
                 <h1></h1>
 
                 <div className='health-bar-container'>
-                    <div className='player-health-bar'>💃</div>
-                    <div className='enemy-health-bar'>😈</div>
+                    <div className='player-health-bar'>💃
+                        <progress className='player-healthBar' id="health" value={playerHealth} max="100"></progress>
+                    </div>
+                    <div className='enemy-health-bar'>😈
+                        <progress className='enemy-healthBar' id="health" value={enemyHealth} max="100"></progress>
+                    </div>
                 </div>
                 <div className='fire-container'>
                     <img className='fire-indicator' src={fireImage}/>
