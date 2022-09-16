@@ -41,11 +41,25 @@ const [isPope, setIsPope] = useState<boolean>(false)
         popeFireTimes: [1100, 1300]
     }
 
+    interface IEnemyModels {
+        priestModels: any[]
+        bishopModels: any[]
+        cardinalModels: any[]
+        popeModels: any[]
+    }
+
+    const enemyModels: IEnemyModels = {
+        priestModels: ['forward', 'shooting1', 'shooting2', 'hit', 'dying', 'revived'],
+        bishopModels: ['forward', 'shooting1', 'shooting2', 'hit', 'dying', 'revived'],
+        cardinalModels: ['forward', 'shooting1', 'shooting2', 'hit', 'dying', 'revived'],
+        popeModels: ['forward', 'shooting1', 'shooting2', 'hit', 'dying', 'revived']
+    }
+
 
     return (
         <div className="right-side">
             <div className="health-div">
-                <EnemyHealthBar />
+                <EnemyHealthBar/>
             </div>
             <div className="enemy-image">
                 <img src={enemyImage} onClick={changeImage} />
