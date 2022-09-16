@@ -5,6 +5,7 @@ import Player from '../Characters/Player';
 import Enemy from '../Characters/Enemy';
 import gunTrigger from '../../Assets/Models/trigger.png'
 import gamePage from '../../Assets/Backgrounds/battlePage.jpeg'
+import fireFont from '../../Assets/Fonts/FIRE.gif'
 import './Game.css';
 // import HealthBar from '../HealthBar/HealthBar'
 const music = require('../../Assets/Music/testMusic.mp3');
@@ -19,11 +20,8 @@ const [instructions, setInstructions] = useState<any>(false)
 const [missionCount, setMissionCount] = useState<number>(0)
 const [gameCount, setGameCount] = useState<number>(0)
 const [shotFirst, setShotFirst] = useState<boolean>(false)
-let gameInstructions:any
+const [fireImage, setFireImage] = useState<string>('')
 
-// const setTimeout(() => {
-    
-// }, timeout);
 
 
 const hideInstructions = () => {
@@ -33,8 +31,24 @@ const hideInstructions = () => {
 useEffect(() => {
     if (gameCount === 0){
         setInstructions(true)
-    }
+    } else {
+    startGame() }
 }, [])
+
+const startGame = () => {
+
+    startTurn()
+}
+
+const startTurn = () => {
+
+    fireIndicator()
+}
+
+const closeInstructionsStartGame = () => {
+    hideInstructions()
+    startGame()
+}
 
 const viewInstructions = () => {
     
@@ -42,7 +56,7 @@ const viewInstructions = () => {
         return (
             <div className="game-instructions">
                 <h1>instructions go here</h1>
-                <button className='dismiss-instructions-button' onClick={hideInstructions}>Less reading, more shooting</button>
+                <button className='dismiss-instructions-button' onClick={closeInstructionsStartGame}>Less reading, more shooting</button>
             </div>
         )
     } else {
@@ -50,8 +64,36 @@ const viewInstructions = () => {
     }
 }
 
-//save it as a variable that only renders the div if both conditions are met, put the instructions in the useeffect div
+const fireRandomizer = ():number => {
+    let min = Math.ceil(1000);
+    let max = Math.floor(5000);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
+const fireIndicatorHelper = () => {
+    let fireDate = Date.now()
+    setFireImage(fireFont)
+}
+
+const fireIndicator:any = () => {
+    setTimeout(fireIndicatorHelper, fireRandomizer())
+}
+
+const enemyShotRandomizer = (minTime:number, maxTime:number) => {
+    let min = Math.ceil(minTime);
+    let max = Math.floor(maxTime);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const enemyShotHelper = () => {
+    let enemyShotDate = Date.now()
+}
+
+const enemyShoot:any = () => {
+    setTimeout(enemyShotHelper, enemyShotRandomizer(1200, 1400))
+}
+
+//save it as a variable that only renders the div if both conditions are met, put the instructions in the useeffect div
 
     return (
         <div className="game-background">
@@ -61,7 +103,7 @@ const viewInstructions = () => {
                     url={music}
                     width='0vw'
                     height='0vh'
-                    volume={0.1}
+                    volume={0.0}
                     loop={true}
                     playing={true}
                 />
@@ -72,7 +114,9 @@ const viewInstructions = () => {
                     <div className='player-health-bar'>💃</div>
                     <div className='enemy-health-bar'>😈</div>
                 </div>
-
+                <div className='fire-container'>
+                    <img className='fire-indicator' src={fireImage}/>
+                </div>
                 <img className='trigger-button' src={gunTrigger} alt='gun trigger avatar' />
                 <div className="model-container">
                     <Player />
@@ -87,7 +131,6 @@ const viewInstructions = () => {
                         <button className='back-to-main-page'>Retire from Hunting?</button>
                     </Link>
                     {viewInstructions()}
-                  
                 </div>
             </section>
         </div>
