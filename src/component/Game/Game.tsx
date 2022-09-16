@@ -19,8 +19,12 @@ const Game = (props: Props) => {
 const [instructions, setInstructions] = useState<any>(false)
 const [missionCount, setMissionCount] = useState<number>(0)
 const [gameCount, setGameCount] = useState<number>(0)
-const [shotFirst, setShotFirst] = useState<boolean>(false)
+const [playerShotFirst, setPlayerShotFirst] = useState<boolean>(false)
+const [enemyShotFirst, setEnemyShotFirst] = useState<boolean>(false)
 const [fireImage, setFireImage] = useState<string>('')
+const [fireIndicatorDate, setFireIndicatorDate] = useState<number>(0)
+const [enemyShotDate, setEnemyShotDate] = useState<number>(0)
+const [playerShotDate, setPlayerShotDate] = useState<number>(0)
 
 
 
@@ -43,6 +47,9 @@ const startGame = () => {
 const startTurn = () => {
 
     fireIndicator()
+    enemyShoot()
+    capturePlayerShot()
+    compareShots()
 }
 
 const closeInstructionsStartGame = () => {
@@ -71,7 +78,7 @@ const fireRandomizer = ():number => {
 }
 
 const fireIndicatorHelper = () => {
-    let fireDate = Date.now()
+    setFireIndicatorDate(Date.now())
     setFireImage(fireFont)
 }
 
@@ -79,19 +86,48 @@ const fireIndicator:any = () => {
     setTimeout(fireIndicatorHelper, fireRandomizer())
 }
 
-const enemyShotRandomizer = (minTime:number, maxTime:number) => {
+const shotRandomizer = (minTime:number, maxTime:number) => {
     let min = Math.ceil(minTime);
     let max = Math.floor(maxTime);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 const enemyShotHelper = () => {
-    let enemyShotDate = Date.now()
+    setEnemyShotDate(Date.now())
 }
 
 const enemyShoot:any = () => {
-    setTimeout(enemyShotHelper, enemyShotRandomizer(1200, 1400))
+    setTimeout(enemyShotHelper, shotRandomizer(1200, 1400))
 }
+
+const capturePlayerShot = () => {
+    setPlayerShotDate(Date.now())
+}
+
+const compareShots = () => {
+    let subtractedPlayerDate = playerShotDate - fireIndicatorDate
+    let subtractedEnemyDate = enemyShotDate - fireIndicatorDate
+    
+    if (subtractedPlayerDate > subtractedEnemyDate) {
+        setEnemyShotFirst(true)
+        setPlayerShotFirst(false)
+    } else if (subtractedPlayerDate < subtractedEnemyDate) {
+        setEnemyShotFirst(false)
+        setPlayerShotFirst(true)
+    } else {
+        setPlayerShotFirst(false)
+        setEnemyShotFirst(false)
+    }
+}
+
+const shotSecondHitCheck = () => {
+    let hitRoll = shotRandomizer(0, 3)
+    if (hitRoll === 3) {
+        //decrement hp bar by 20
+    }
+}
+
+Add enemyShoot, capturePlayerShot, compareShots, shotSecondHitCheck functions and relevant pieces of state 
 
 //save it as a variable that only renders the div if both conditions are met, put the instructions in the useeffect div
 
