@@ -25,8 +25,6 @@ const pope = new Character(1100, 1300)
 const [instructions, setInstructions] = useState<any>(false)
 const [missionCount, setMissionCount] = useState<number>(0)
 const [gameCount, setGameCount] = useState<number>(0)
-const [playerShotFirst, setPlayerShotFirst] = useState<boolean>(false)
-const [enemyShotFirst, setEnemyShotFirst] = useState<boolean>(false)
 const [fireIndicatorDate, setFireIndicatorDate] = useState<number>(0)
 const [enemyShotDate, setEnemyShotDate] = useState<number>(0)
 const [playerShotDate, setPlayerShotDate] = useState<number>(0)
@@ -34,7 +32,10 @@ const [playerHealth, setPlayerHealth] = useState<number>(100)
 const [enemyHealth, setEnemyHealth] = useState<number>(100)
 const [currentCharacter, setCurrentCharacter] = useState<Character>(priest)
 const [playerHasShot, setPlayerHasShot] = useState<boolean>(false)
-
+const [enemyHasShot, setEnemyHasShot] = useState<boolean>(false)
+let playerShotFirst = false
+let firstHitChecked = false
+let secondHitCheck = false
 
 const hideInstructions = () => {
     setInstructions(false)
@@ -59,25 +60,25 @@ const resetGameState = () => {
 
 const resetRoundState = () => {
     setPlayerHasShot(false)
-    setPlayerShotFirst(false)
-    setEnemyShotFirst(false)
+    setEnemyHasShot(false)
+    playerShotFirst = false
     setFireIndicatorDate(0)
     setEnemyShotDate(0)
     setPlayerShotDate(0)
 }
 
 const startRound = () => {
-
-
+    //guns out model
     resetRoundState()
     fireIndicator()
-    enemyShoot()
-    if (playerHasShot === true) {
-    compareShots()
-    shotFirstHitCheck()
-    shotSecondHitCheck()
-    }
 }
+
+useEffect(() => {
+    console.log('useEffect triggered')
+    if (playerHasShot && enemyHasShot === true) {
+        compareShots()
+        }
+}, [playerHasShot, enemyHasShot])
 
 const closeInstructionsStartGame = () => {
     hideInstructions()
@@ -106,6 +107,8 @@ const fireRandomizer = ():number => {
 
 const fireIndicatorHelper = () => {
     setFireIndicatorDate(Date.now())
+        enemyShoot()
+    console.log('fire indicator shown')
 }
 
 const fireIndicator:any = () => {
@@ -120,46 +123,54 @@ const shotRandomizer = (minTime:number, maxTime:number) => {
 
 const enemyShotHelper = () => {
     setEnemyShotDate(Date.now())
+    setEnemyHasShot(true)
+    console.log('enemy has shot')
 }
 
 const enemyShoot:any = () => {
+    console.log(currentCharacter.minFireTime)
+    console.log(currentCharacter.maxFireTime)
     setTimeout(enemyShotHelper, shotRandomizer(currentCharacter.minFireTime, currentCharacter.maxFireTime))
 }
-
-
 
 const capturePlayerShot = () => {
     setPlayerShotDate(Date.now())
     setPlayerHasShot(true)
-    console.log('hellooooo')
+    console.log('player has shot')
 }
 
 const compareShots = () => {
     let subtractedPlayerDate = playerShotDate - fireIndicatorDate
     let subtractedEnemyDate = enemyShotDate - fireIndicatorDate
     
+    
     if (subtractedPlayerDate < 0) {
-        setPlayerShotFirst(false)
+        playerShotFirst = false
     } else if (subtractedPlayerDate > subtractedEnemyDate) {
-        setEnemyShotFirst(true)
-        setPlayerShotFirst(false)
+        console.log(subtractedEnemyDate, subtractedPlayerDate)
+        playerShotFirst = false
     } else if (subtractedPlayerDate < subtractedEnemyDate) {
-        setEnemyShotFirst(false)
-        setPlayerShotFirst(true)
+        playerShotFirst = true
     } else {
-        setPlayerShotFirst(false)
-        setEnemyShotFirst(false)
+        playerShotFirst = false
     }
+    shotFirstHitCheck()
+    shotSecondHitCheck()
 }
 
 
 const shotFirstHitCheck = () => {
     const playerMinusTwenty = playerHealth - 20 
     const enemyMinusTwenty = enemyHealth - 20 
+    console.log(playerShotFirst)
     if (playerShotFirst === true) {
         setEnemyHealth(enemyMinusTwenty)
-    } else if (enemyShotFirst === true) {
+        console.log('player shot first and hit')
+    } else if (playerShotFirst === false) {
         setPlayerHealth(playerMinusTwenty)
+        console.log('enemy shot first and hit')
+    } else {
+        console.log('neither have shot first apparently?')
     }
 }
 
@@ -169,9 +180,42 @@ const shotSecondHitCheck = () => {
     let hitRoll = shotRandomizer(0, 3)
     if (hitRoll > 2 && playerShotFirst === false) {
         setEnemyHealth(enemyMinusTwenty)
-    } else if (hitRoll > 2 && enemyShotFirst === false) {
+        console.log('player shot second and hit')
+    } else if (hitRoll > 2 && playerShotFirst === true) {
         setPlayerHealth(playerMinusTwenty)
+        console.log('enemy shot second and hit')
+    } else {
+        console.log('someone shot second and missed')
     }
+}
+
+useEffect(() => {
+    gameOverCheck()
+}, [enemyHealth, playerHealth])
+
+const gameOverCheck = () => {
+    if (playerHealth <= 0) {
+        gameLoss()
+    } else if (enemyHealth <= 0) {
+        gameWin()
+    } else {
+        nextRound()
+    }
+}
+
+const gameLoss = () => {
+    console.log('you uhhh died')
+}
+
+const gameWin = () => {
+    console.log('you win nice lady')
+}
+
+const nextRound = () => {
+    //put damage animations here for 1 second
+    setTimeout(() => {
+        startRound()
+    }, 1000);
 }
 
 // Add enemyShoot, capturePlayerShot, compareShots, shotSecondHitCheck functions and relevant pieces of state 
