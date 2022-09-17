@@ -11,6 +11,7 @@ import Character from '../Characters/character';
 // import HealthBar from '../HealthBar/HealthBar'
 const music = require('../../Assets/Music/testMusic.mp3');
 
+
 interface Props{
     celebration: string
     missionCount: number
@@ -20,6 +21,19 @@ interface Props{
 }
 
 const Game = (props: Props) => {
+
+    const [instructions, setInstructions] = useState<any>(false)
+    const [missionCount, setMissionCount] = useState<number>(0)
+    const [gameCount, setGameCount] = useState<number>(0)
+    const [playerShotFirst, setPlayerShotFirst] = useState<boolean>(false)
+    const [enemyShotFirst, setEnemyShotFirst] = useState<boolean>(false)
+    const [fireImage, setFireImage] = useState<string>('')
+    const [fireIndicatorDate, setFireIndicatorDate] = useState<number>(0)
+    const [enemyShotDate, setEnemyShotDate] = useState<number>(0)
+    const [playerShotDate, setPlayerShotDate] = useState<number>(0)
+
+    const hideInstructions = () => {
+        setInstructions(false)
 
 const priest = new Character(1700, 2500)
 const bishop = new Character(1500, 2000)
@@ -103,13 +117,17 @@ const viewInstructions = () => {
         return null;
     }
 }
+    useEffect(() => {
+        if (gameCount === 0) {
+            setInstructions(true)
+        } else {
+            startGame()
+        }
+    }, [])
 
-const fireRandomizer = ():number => {
-    let min = Math.ceil(1000);
-    let max = Math.floor(5000);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+    const startGame = () => {
 
+        startTurn()
 const fireIndicatorHelper = () => {
     setFireIndicatorDate(Date.now())
         enemyShoot()
@@ -176,8 +194,14 @@ const shotFirstHitCheck = () => {
         console.log('enemy shot first and hit')
     } else {
         console.log('neither have shot first apparently?')
+
     }
-}
+    const startTurn = () => {
+
+        fireIndicator()
+        enemyShoot()
+        capturePlayerShot()
+        compareShots()
 
 const shotSecondHitCheck = () => {
     const playerMinusTwenty = playerHealth - 20
@@ -191,8 +215,87 @@ const shotSecondHitCheck = () => {
         console.log('enemy shot second and hit')
     } else {
         console.log('someone shot second and missed')
+
     }
-}
+
+    const closeInstructionsStartGame = () => {
+        hideInstructions()
+        startGame()
+    }
+
+    const viewInstructions = () => {
+
+        if (gameCount === 0 && instructions === true) {
+            return (
+                <div className="game-instructions">
+                    <h1>instructions go here</h1>
+                    <button className='dismiss-instructions-button' onClick={closeInstructionsStartGame}>Less reading, more shooting</button>
+                </div>
+            )
+        } else {
+            return null;
+        }
+    }
+
+    const fireRandomizer = (): number => {
+        let min = Math.ceil(1000);
+        let max = Math.floor(5000);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    const fireIndicatorHelper = () => {
+        setFireIndicatorDate(Date.now())
+        setFireImage(fireFont)
+    }
+
+    const fireIndicator: any = () => {
+        setTimeout(fireIndicatorHelper, fireRandomizer())
+    }
+
+    const shotRandomizer = (minTime: number, maxTime: number) => {
+        let min = Math.ceil(minTime);
+        let max = Math.floor(maxTime);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    const enemyShotHelper = () => {
+        setEnemyShotDate(Date.now())
+    }
+
+    const enemyShoot: any = () => {
+        setTimeout(enemyShotHelper, shotRandomizer(1200, 1400))
+    }
+
+    const capturePlayerShot = () => {
+        setPlayerShotDate(Date.now())
+    }
+
+    const compareShots = () => {
+        let subtractedPlayerDate = playerShotDate - fireIndicatorDate
+        let subtractedEnemyDate = enemyShotDate - fireIndicatorDate
+
+        if (subtractedPlayerDate > subtractedEnemyDate) {
+            setEnemyShotFirst(true)
+            setPlayerShotFirst(false)
+        } else if (subtractedPlayerDate < subtractedEnemyDate) {
+            setEnemyShotFirst(false)
+            setPlayerShotFirst(true)
+        } else {
+            setPlayerShotFirst(false)
+            setEnemyShotFirst(false)
+        }
+    }
+
+    const shotSecondHitCheck = () => {
+        let hitRoll = shotRandomizer(0, 3)
+        if (hitRoll === 3) {
+            //decrement hp bar by 20
+        }
+    }
+
+//Add enemyShoot, capturePlayerShot, compareShots, shotSecondHitCheck functions and relevant pieces of state
+
+    //save it as a variable that only renders the div if both conditions are met, put the instructions in the useeffect div
 
 useEffect(() => {
     gameOverCheck()
@@ -288,7 +391,11 @@ const resetHealthBar = () => {
                     </div>
                 </div>
                 <div className='fire-container'>
+
+                    <img className='fire-indicator' src={fireImage} />
+
                     {fireIndicatorDate && <img className='fire-indicator' src={fireFont}/>}
+
                 </div>
                 {fireIndicatorDate && <button className='trigger-container' disabled={playerHasShot}>
                     <img className='trigger-button' onClick={capturePlayerShot} src={gunTrigger} alt='gun trigger avatar' />
