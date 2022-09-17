@@ -29,6 +29,7 @@ useEffect(() => {
               <Link to='/missions'>
                 <button className='play-game-button'>Confess Your Sins</button>
               </Link>
+              <p>© Gameworks Studios LLC Incorporated 2022</p>
             </div>
           </Route>
 

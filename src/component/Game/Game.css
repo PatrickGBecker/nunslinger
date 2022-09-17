@@ -13,8 +13,16 @@
 }
 
 .trigger-button {
-    height: 5rem;
-    width: 5rem;
+    height: 30rem;
+    width: 30rem;
+}
+
+.trigger-container {
+    background: none;
+    border: none;
+    outline: none;
+    height: 30rem;
+    width: 30rem;
 }
 
 .game {
@@ -26,6 +34,7 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 
 @font-face {
     font-family: Imported;
@@ -41,3 +50,17 @@
     display: flex;
     flex-direction: row;
 }
+
+.fire-container {
+    border: none;
+}
+
+.fire-indicator {
+    
+    height: 20vh;
+    width: 20vw;
+}
+
+/* .hidden {
+    display:none
+} */
