@@ -8,6 +8,7 @@ import DemonLeaving1 from "../../Assets/Models/Demon-Leaving-1.png";
 import DemonLeaving2 from "../../Assets/Models/Demon-Leaving-2.png";
 import RevivedPriest from "../../Assets/Models/Revived-Priest.png";
 import DemonSpirit from "../../Assets/Models/Demon-Spirit.png";
+import Character from './character';
 
 const Enemy = () => {
 
@@ -41,6 +42,18 @@ const [isPope, setIsPope] = useState<boolean>(false)
         popeFireTimes: [1100, 1300]
     }
 
+    
+
+    // class character {
+    //     constructor(fireTimes) {
+    //         this.fireTimes = fireTimes
+    //     }
+    // }
+
+    // new Priest Character()
+
+
+
     interface IEnemyModels {
         priestModels: any[]
         bishopModels: any[]
@@ -55,6 +68,13 @@ const [isPope, setIsPope] = useState<boolean>(false)
         popeModels: ['forward', 'shooting1', 'shooting2', 'hit', 'dying', 'revived']
     }
 
+/* 
+make a function in game that uses enemyFiretimes,
+pass it down to enemy component, fire function in enemy component 
+and set hook in game
+
+potentially make vanilla js class
+*/
 
     return (
         <div className="right-side">

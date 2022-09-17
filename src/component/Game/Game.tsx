@@ -7,6 +7,7 @@ import gunTrigger from '../../Assets/Models/trigger.png'
 import gamePage from '../../Assets/Backgrounds/battlePage.jpeg'
 import fireFont from '../../Assets/Fonts/FIRE.gif'
 import './Game.css';
+import Character from '../Characters/character';
 // import HealthBar from '../HealthBar/HealthBar'
 const music = require('../../Assets/Music/testMusic.mp3');
 
@@ -16,17 +17,23 @@ interface Props{
 
 const Game = (props: Props) => {
 
+const priest = new Character(1700, 2500)
+const bishop = new Character(1500, 2000)
+const cardinal = new Character(1300, 1750)
+const pope = new Character(1100, 1300)
+
 const [instructions, setInstructions] = useState<any>(false)
 const [missionCount, setMissionCount] = useState<number>(0)
 const [gameCount, setGameCount] = useState<number>(0)
 const [playerShotFirst, setPlayerShotFirst] = useState<boolean>(false)
 const [enemyShotFirst, setEnemyShotFirst] = useState<boolean>(false)
-const [fireImage, setFireImage] = useState<string>('')
 const [fireIndicatorDate, setFireIndicatorDate] = useState<number>(0)
 const [enemyShotDate, setEnemyShotDate] = useState<number>(0)
 const [playerShotDate, setPlayerShotDate] = useState<number>(0)
 const [playerHealth, setPlayerHealth] = useState<number>(100)
 const [enemyHealth, setEnemyHealth] = useState<number>(100)
+const [currentCharacter, setCurrentCharacter] = useState<Character>(priest)
+const [playerHasShot, setPlayerHasShot] = useState<boolean>(false)
 
 
 const hideInstructions = () => {
@@ -41,18 +48,35 @@ useEffect(() => {
 }, [])
 
 const startGame = () => {
-
-    startTurn()
+    resetGameState()
+    startRound()
 }
 
-const startTurn = () => {
+const resetGameState = () => {
+    setPlayerHealth(100)
+    setEnemyHealth(100)
+}
 
+const resetRoundState = () => {
+    setPlayerHasShot(false)
+    setPlayerShotFirst(false)
+    setEnemyShotFirst(false)
+    setFireIndicatorDate(0)
+    setEnemyShotDate(0)
+    setPlayerShotDate(0)
+}
+
+const startRound = () => {
+
+
+    resetRoundState()
     fireIndicator()
     enemyShoot()
-    capturePlayerShot()
+    if (playerHasShot === true) {
     compareShots()
     shotFirstHitCheck()
     shotSecondHitCheck()
+    }
 }
 
 const closeInstructionsStartGame = () => {
@@ -82,7 +106,6 @@ const fireRandomizer = ():number => {
 
 const fireIndicatorHelper = () => {
     setFireIndicatorDate(Date.now())
-    setFireImage(fireFont)
 }
 
 const fireIndicator:any = () => {
@@ -100,18 +123,24 @@ const enemyShotHelper = () => {
 }
 
 const enemyShoot:any = () => {
-    setTimeout(enemyShotHelper, shotRandomizer(1200, 1400))
+    setTimeout(enemyShotHelper, shotRandomizer(currentCharacter.minFireTime, currentCharacter.maxFireTime))
 }
+
+
 
 const capturePlayerShot = () => {
     setPlayerShotDate(Date.now())
+    setPlayerHasShot(true)
+    console.log('hellooooo')
 }
 
 const compareShots = () => {
     let subtractedPlayerDate = playerShotDate - fireIndicatorDate
     let subtractedEnemyDate = enemyShotDate - fireIndicatorDate
     
-    if (subtractedPlayerDate > subtractedEnemyDate) {
+    if (subtractedPlayerDate < 0) {
+        setPlayerShotFirst(false)
+    } else if (subtractedPlayerDate > subtractedEnemyDate) {
         setEnemyShotFirst(true)
         setPlayerShotFirst(false)
     } else if (subtractedPlayerDate < subtractedEnemyDate) {
@@ -197,9 +226,11 @@ const resetHealthBar = () => {
                     </div>
                 </div>
                 <div className='fire-container'>
-                    <img className='fire-indicator' src={fireImage}/>
+                    {fireIndicatorDate && <img className='fire-indicator' src={fireFont}/>}
                 </div>
-                <img className='trigger-button' src={gunTrigger} alt='gun trigger avatar' />
+                {fireIndicatorDate && <button className='trigger-container' disabled={playerHasShot}>
+                    <img className='trigger-button' onClick={capturePlayerShot} src={gunTrigger} alt='gun trigger avatar' />
+                </button>}
                 <div className="model-container">
                     <Player />
                     <Enemy />
