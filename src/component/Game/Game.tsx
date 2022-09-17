@@ -11,194 +11,239 @@ import Character from '../Characters/character';
 // import HealthBar from '../HealthBar/HealthBar'
 const music = require('../../Assets/Music/testMusic.mp3');
 
-interface Props {
+interface Props{
     celebration: string
 }
 
 const Game = (props: Props) => {
 
-    const priest = new Character(1700, 2500)
-    const bishop = new Character(1500, 2000)
-    const cardinal = new Character(1300, 1750)
-    const pope = new Character(1100, 1300)
+const priest = new Character(1700, 2500)
+const bishop = new Character(1500, 2000)
+const cardinal = new Character(1300, 1750)
+const pope = new Character(1100, 1300)
 
-    const [instructions, setInstructions] = useState<any>(false)
-    const [missionCount, setMissionCount] = useState<number>(0)
-    const [gameCount, setGameCount] = useState<number>(0)
-    const [playerShotFirst, setPlayerShotFirst] = useState<boolean>(false)
-    const [enemyShotFirst, setEnemyShotFirst] = useState<boolean>(false)
-    const [fireIndicatorDate, setFireIndicatorDate] = useState<number>(0)
-    const [enemyShotDate, setEnemyShotDate] = useState<number>(0)
-    const [playerShotDate, setPlayerShotDate] = useState<number>(0)
-    const [playerHealth, setPlayerHealth] = useState<number>(100)
-    const [enemyHealth, setEnemyHealth] = useState<number>(100)
-    const [currentCharacter, setCurrentCharacter] = useState<Character>(priest)
-    const [playerHasShot, setPlayerHasShot] = useState<boolean>(false)
+const [instructions, setInstructions] = useState<any>(false)
+const [missionCount, setMissionCount] = useState<number>(0)
+const [gameCount, setGameCount] = useState<number>(0)
+const [fireIndicatorDate, setFireIndicatorDate] = useState<number>(0)
+const [enemyShotDate, setEnemyShotDate] = useState<number>(0)
+const [playerShotDate, setPlayerShotDate] = useState<number>(0)
+const [playerHealth, setPlayerHealth] = useState<number>(100)
+const [enemyHealth, setEnemyHealth] = useState<number>(100)
+const [currentCharacter, setCurrentCharacter] = useState<Character>(priest)
+const [playerHasShot, setPlayerHasShot] = useState<boolean>(false)
+const [enemyHasShot, setEnemyHasShot] = useState<boolean>(false)
+let playerShotFirst = false
+let firstHitChecked = false
+let secondHitCheck = false
 
+const hideInstructions = () => {
+    setInstructions(false)
+}
 
-    const hideInstructions = () => {
-        setInstructions(false)
-    }
+useEffect(() => {
+    if (gameCount === 0){
+        setInstructions(true)
+    } else {
+    startGame() }
+}, [])
 
-    useEffect(() => {
-        if (gameCount === 0) {
-            setInstructions(true)
-        } else {
-            startGame()
+const startGame = () => {
+    resetGameState()
+    startRound()
+}
+
+const resetGameState = () => {
+    setPlayerHealth(100)
+    setEnemyHealth(100)
+}
+
+const resetRoundState = () => {
+    setPlayerHasShot(false)
+    setEnemyHasShot(false)
+    playerShotFirst = false
+    setFireIndicatorDate(0)
+    setEnemyShotDate(0)
+    setPlayerShotDate(0)
+}
+
+const startRound = () => {
+    //guns out model
+    resetRoundState()
+    fireIndicator()
+}
+
+useEffect(() => {
+    console.log('useEffect triggered')
+    if (playerHasShot && enemyHasShot === true) {
+        compareShots()
         }
-    }, [])
+}, [playerHasShot, enemyHasShot])
 
-    const startGame = () => {
-        resetGameState()
-        startRound()
+const closeInstructionsStartGame = () => {
+    hideInstructions()
+    startGame()
+}
+
+const viewInstructions = () => {
+    
+    if (gameCount === 0 && instructions === true) {
+        return (
+            <div className="game-instructions">
+                <h1>instructions go here</h1>
+                <button className='dismiss-instructions-button' onClick={closeInstructionsStartGame}>Less reading, more shooting</button>
+            </div>
+        )
+    } else {
+        return null;
     }
+}
 
-    const resetGameState = () => {
-        setPlayerHealth(100)
-        setEnemyHealth(100)
-    }
+const fireRandomizer = ():number => {
+    let min = Math.ceil(1000);
+    let max = Math.floor(5000);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
-    const resetRoundState = () => {
-        setPlayerHasShot(false)
-        setPlayerShotFirst(false)
-        setEnemyShotFirst(false)
-        setFireIndicatorDate(0)
-        setEnemyShotDate(0)
-        setPlayerShotDate(0)
-    }
-
-    const startRound = () => {
-
-
-        resetRoundState()
-        fireIndicator()
+const fireIndicatorHelper = () => {
+    setFireIndicatorDate(Date.now())
         enemyShoot()
-        if (playerHasShot === true) {
-            compareShots()
-            shotFirstHitCheck()
-            shotSecondHitCheck()
-        }
+    console.log('fire indicator shown')
+}
+
+const fireIndicator:any = () => {
+    setTimeout(fireIndicatorHelper, fireRandomizer())
+}
+
+const shotRandomizer = (minTime:number, maxTime:number) => {
+    let min = Math.ceil(minTime);
+    let max = Math.floor(maxTime);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const enemyShotHelper = () => {
+    setEnemyShotDate(Date.now())
+    setEnemyHasShot(true)
+    console.log('enemy has shot')
+}
+
+const enemyShoot:any = () => {
+    console.log(currentCharacter.minFireTime)
+    console.log(currentCharacter.maxFireTime)
+    setTimeout(enemyShotHelper, shotRandomizer(currentCharacter.minFireTime, currentCharacter.maxFireTime))
+}
+
+const capturePlayerShot = () => {
+    setPlayerShotDate(Date.now())
+    setPlayerHasShot(true)
+    console.log('player has shot')
+}
+
+const compareShots = () => {
+    let subtractedPlayerDate = playerShotDate - fireIndicatorDate
+    let subtractedEnemyDate = enemyShotDate - fireIndicatorDate
+    
+    
+    if (subtractedPlayerDate < 0) {
+        playerShotFirst = false
+    } else if (subtractedPlayerDate > subtractedEnemyDate) {
+        console.log(subtractedEnemyDate, subtractedPlayerDate)
+        playerShotFirst = false
+    } else if (subtractedPlayerDate < subtractedEnemyDate) {
+        playerShotFirst = true
+    } else {
+        playerShotFirst = false
     }
+    shotFirstHitCheck()
+    shotSecondHitCheck()
+}
 
-    const closeInstructionsStartGame = () => {
-        hideInstructions()
-        startGame()
+
+const shotFirstHitCheck = () => {
+    const playerMinusTwenty = playerHealth - 20 
+    const enemyMinusTwenty = enemyHealth - 20 
+    console.log(playerShotFirst)
+    if (playerShotFirst === true) {
+        setEnemyHealth(enemyMinusTwenty)
+        console.log('player shot first and hit')
+    } else if (playerShotFirst === false) {
+        setPlayerHealth(playerMinusTwenty)
+        console.log('enemy shot first and hit')
+    } else {
+        console.log('neither have shot first apparently?')
     }
+}
 
-    const viewInstructions = () => {
-
-        if (gameCount === 0 && instructions === true) {
-            return (
-                <div className="game-instructions">
-                    <h1>instructions go here</h1>
-                    <button className='dismiss-instructions-button' onClick={closeInstructionsStartGame}>Less reading, more shooting</button>
-                </div>
-            )
-        } else {
-            return null;
-        }
+const shotSecondHitCheck = () => {
+    const playerMinusTwenty = playerHealth - 20
+    const enemyMinusTwenty = enemyHealth - 20 
+    let hitRoll = shotRandomizer(0, 3)
+    if (hitRoll > 2 && playerShotFirst === false) {
+        setEnemyHealth(enemyMinusTwenty)
+        console.log('player shot second and hit')
+    } else if (hitRoll > 2 && playerShotFirst === true) {
+        setPlayerHealth(playerMinusTwenty)
+        console.log('enemy shot second and hit')
+    } else {
+        console.log('someone shot second and missed')
     }
+}
 
-    const fireRandomizer = (): number => {
-        let min = Math.ceil(1000);
-        let max = Math.floor(5000);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+useEffect(() => {
+    gameOverCheck()
+}, [enemyHealth, playerHealth])
+
+const gameOverCheck = () => {
+    if (playerHealth <= 0) {
+        gameLoss()
+    } else if (enemyHealth <= 0) {
+        gameWin()
+    } else {
+        nextRound()
     }
+}
 
-    const fireIndicatorHelper = () => {
-        setFireIndicatorDate(Date.now())
-    }
+const gameLoss = () => {
+    console.log('you uhhh died')
+}
 
-    const fireIndicator: any = () => {
-        setTimeout(fireIndicatorHelper, fireRandomizer())
-    }
+const gameWin = () => {
+    console.log('you win nice lady')
+}
 
-    const shotRandomizer = (minTime: number, maxTime: number) => {
-        let min = Math.ceil(minTime);
-        let max = Math.floor(maxTime);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+const nextRound = () => {
+    //put damage animations here for 1 second
+    setTimeout(() => {
+        startRound()
+    }, 1000);
+}
 
-    const enemyShotHelper = () => {
-        setEnemyShotDate(Date.now())
-    }
+// Add enemyShoot, capturePlayerShot, compareShots, shotSecondHitCheck functions and relevant pieces of state 
 
-    const enemyShoot: any = () => {
-        setTimeout(enemyShotHelper, shotRandomizer(currentCharacter.minFireTime, currentCharacter.maxFireTime))
-    }
+//save it as a variable that only renders the div if both conditions are met, put the instructions in the useeffect div
 
-
-
-    const capturePlayerShot = () => {
-        setPlayerShotDate(Date.now())
-        setPlayerHasShot(true)
-        console.log('hellooooo')
-    }
-
-    const compareShots = () => {
-        let subtractedPlayerDate = playerShotDate - fireIndicatorDate
-        let subtractedEnemyDate = enemyShotDate - fireIndicatorDate
-
-        if (subtractedPlayerDate < 0) {
-            setPlayerShotFirst(false)
-        } else if (subtractedPlayerDate > subtractedEnemyDate) {
-            setEnemyShotFirst(true)
-            setPlayerShotFirst(false)
-        } else if (subtractedPlayerDate < subtractedEnemyDate) {
-            setEnemyShotFirst(false)
-            setPlayerShotFirst(true)
-        } else {
-            setPlayerShotFirst(false)
-            setEnemyShotFirst(false)
-        }
-    }
+/*
 
 
-    const shotFirstHitCheck = () => {
-        const playerMinusTwenty = playerHealth - 20
-        const enemyMinusTwenty = enemyHealth - 20
-        if (playerShotFirst === true) {
-            setEnemyHealth(enemyMinusTwenty)
-        } else if (enemyShotFirst === true) {
-            setPlayerHealth(playerMinusTwenty)
-        }
-    }
-
-    const shotSecondHitCheck = () => {
-        const playerMinusTwenty = playerHealth - 20
-        const enemyMinusTwenty = enemyHealth - 20
-        let hitRoll = shotRandomizer(0, 3)
-        if (hitRoll > 2 && playerShotFirst === false) {
-            setEnemyHealth(enemyMinusTwenty)
-        } else if (hitRoll > 2 && enemyShotFirst === false) {
-            setPlayerHealth(playerMinusTwenty)
-        }
-    }
-
-    // Add enemyShoot, capturePlayerShot, compareShots, shotSecondHitCheck functions and relevant pieces of state 
-
-    //save it as a variable that only renders the div if both conditions are met, put the instructions in the useeffect div
-
-    /*
-     
-    model healthbars decreases when model is hit.
-    model are hit once
-    if health bar decreases, model variation changes.
-     
-    const changeHealthBar = () => {
-    if (players hit is faster than enemys hit) {
-           players healthBar.value -= 20
-           changeVariation()
-       }
-    }
-     
-    const resetHealthBar = () => {
-       if (gameCount === 0) {
-       then healthBar('')
-       }
-    }
-     
-    */
+ 
+model healthbars decreases when model is hit.
+model are hit once
+if health bar decreases, model variation changes.
+ 
+const changeHealthBar = () => {
+if (players hit is faster than enemys hit) {
+       players healthBar.value -= 20
+       changeVariation()
+   }
+}
+ 
+const resetHealthBar = () => {
+   if (gameCount === 0) {
+   then healthBar('')
+   }
+}
+ 
+*/
 
 
     return (
@@ -225,7 +270,7 @@ const Game = (props: Props) => {
                     </div>
                 </div>
                 <div className='fire-container'>
-                    {fireIndicatorDate && <img className='fire-indicator' src={fireFont} />}
+                    {fireIndicatorDate && <img className='fire-indicator' src={fireFont}/>}
                 </div>
                 {fireIndicatorDate && <button className='trigger-container' disabled={playerHasShot}>
                     <img className='trigger-button' onClick={capturePlayerShot} src={gunTrigger} alt='gun trigger avatar' />
