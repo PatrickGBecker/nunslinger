@@ -13,6 +13,10 @@ const music = require('../../Assets/Music/testMusic.mp3');
 
 interface Props{
     celebration: string
+    missionCount: number
+    gameCount: number
+    setMissionCount: any
+    setGameCount: any
 }
 
 const Game = (props: Props) => {
@@ -23,8 +27,6 @@ const cardinal = new Character(1300, 1750)
 const pope = new Character(1100, 1300)
 
 const [instructions, setInstructions] = useState<any>(false)
-const [missionCount, setMissionCount] = useState<number>(0)
-const [gameCount, setGameCount] = useState<number>(0)
 const [fireIndicatorDate, setFireIndicatorDate] = useState<number>(0)
 const [enemyShotDate, setEnemyShotDate] = useState<number>(0)
 const [playerShotDate, setPlayerShotDate] = useState<number>(0)
@@ -33,16 +35,17 @@ const [enemyHealth, setEnemyHealth] = useState<number>(100)
 const [currentCharacter, setCurrentCharacter] = useState<Character>(priest)
 const [playerHasShot, setPlayerHasShot] = useState<boolean>(false)
 const [enemyHasShot, setEnemyHasShot] = useState<boolean>(false)
+const [youWin, setYouWin] = useState<boolean>(false)
+const [youLose, setYouLose] = useState<boolean>(false)
 let playerShotFirst = false
-let firstHitChecked = false
-let secondHitCheck = false
+
 
 const hideInstructions = () => {
     setInstructions(false)
 }
 
 useEffect(() => {
-    if (gameCount === 0){
+    if (props.gameCount === 0){
         setInstructions(true)
     } else {
     startGame() }
@@ -65,6 +68,8 @@ const resetRoundState = () => {
     setFireIndicatorDate(0)
     setEnemyShotDate(0)
     setPlayerShotDate(0)
+    setYouLose(false)
+    setYouWin(false)
 }
 
 const startRound = () => {
@@ -87,7 +92,7 @@ const closeInstructionsStartGame = () => {
 
 const viewInstructions = () => {
     
-    if (gameCount === 0 && instructions === true) {
+    if (props.gameCount === 0 && instructions === true) {
         return (
             <div className="game-instructions">
                 <h1>instructions go here</h1>
@@ -205,10 +210,13 @@ const gameOverCheck = () => {
 
 const gameLoss = () => {
     console.log('you uhhh died')
+    setYouLose(true)
 }
 
 const gameWin = () => {
     console.log('you win nice lady')
+    setYouWin(true)
+    increaseMissionAndGameCount()
 }
 
 const nextRound = () => {
@@ -216,6 +224,18 @@ const nextRound = () => {
     setTimeout(() => {
         startRound()
     }, 1000);
+}
+
+const increaseMissionAndGameCount = () => {
+    console.log('pre', props.gameCount, props.missionCount)
+    const missionIncremented = props.missionCount + 1
+    const gameIncremented = props.gameCount + 1
+    props.setMissionCount(missionIncremented)
+    props.setGameCount(gameIncremented)
+}
+
+const log = () => {
+    console.log('post', props.gameCount, props.missionCount)
 }
 
 // Add enemyShoot, capturePlayerShot, compareShots, shotSecondHitCheck functions and relevant pieces of state 
@@ -259,8 +279,6 @@ const resetHealthBar = () => {
                     playing={true}
                 />
 
-                <h1></h1>
-
                 <div className='health-bar-container'>
                     <div className='player-health-bar'>💃
                         <progress className='player-healthBar' id="health" value={playerHealth} max="100"></progress>
@@ -275,15 +293,31 @@ const resetHealthBar = () => {
                 {fireIndicatorDate && <button className='trigger-container' disabled={playerHasShot}>
                     <img className='trigger-button' onClick={capturePlayerShot} src={gunTrigger} alt='gun trigger avatar' />
                 </button>}
+
+                {youWin === true && 
+                    <div className='win-screen'>
+                        <h1>DEMON EXORCISED</h1>
+                        <p>Thanks for kicking ass for The Lord, I mean, for me! Here's your daily bread, sister!</p>
+                        {props.celebration}
+                        <Link to='/missions'>
+                            <button className='next-mission-button' onClick={log}>Next Mission</button>
+                        </Link>
+                    </div>
+                }
+
+                {youLose === true &&
+                    <div className='lose-screen'>
+                        <h1>AND THEN THERE WERE NUN</h1>
+                        <button className='next-mission-button-failure' onClick={startGame}>Try Again</button>
+                    </div>
+                }
+
                 <div className="model-container">
                     <Player />
                     <Enemy />
                 </div>
                 <div className='button-style'>
-                    <Link to='/missions'>
-                        <button className='next-mission-button'>Next Mission</button>
-                    </Link>
-
+                    
                     <Link to='/'>
                         <button className='back-to-main-page'>Retire from Hunting?</button>
                     </Link>

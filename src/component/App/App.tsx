@@ -9,6 +9,8 @@ import './App.css';
 const App = () => {
 
 const [celebration, setCelebration] = useState<string>('')
+const [missionCount, setMissionCount] = useState<number>(0)
+const [gameCount, setGameCount] = useState<number>(0)
 
 useEffect(() => {
   fetchApiData()
@@ -29,16 +31,16 @@ useEffect(() => {
               <Link to='/missions'>
                 <button className='play-game-button'>Confess Your Sins</button>
               </Link>
-              <p>© Gameworks Studios LLC Incorporated 2022</p>
+              <p>©  Gameworks Studios LLC Incorporated 2022</p>
             </div>
           </Route>
 
           <Route exact path='/missions'>
-           <Missions />
+           <Missions missionCount={missionCount} gameCount={gameCount}/>
           </Route>
 
           <Route exact path='/game'>
-            <Game celebration={celebration}/>
+            <Game celebration={celebration} missionCount={missionCount} gameCount={gameCount} setMissionCount={setMissionCount} setGameCount={setGameCount}/>
           </Route>
         
       </div>
