@@ -5,13 +5,18 @@ import confessionImage from '../../Assets/Backgrounds/confess.jpeg'
 import DialogBox from '../Missions/DialogBox';
 import './Missions.css';
 
-const Missions = () => {
+interface Props{
+    missionCount: number
+    gameCount: number
+}
+
+const Missions = (props: Props) => {
 
     return(
         <div className='mission-background'>
             <section className='missions-container' style={{backgroundImage: `url(${confessionImage}`}}>
                 <div className='dialog-box-container'>
-                <DialogBox />
+                <DialogBox missionCount={props.missionCount} gameCount={props.gameCount}/>
                 </div>
                 
                 <div className='button-style'>

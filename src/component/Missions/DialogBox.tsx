@@ -8,7 +8,12 @@ const messages = [
     "Who did you think would exorcise the exorcists? His Holiness himself?"
 ];
 
-const DialogBox = () => {
+interface Props{
+    missionCount: number
+    gameCount: number
+}
+
+const DialogBox = (props: Props) => {
     const [currentMessage, setCurrentMessage] = useState(0);
     const handleClick = () => {
         if (currentMessage < messages.length - 1) {
