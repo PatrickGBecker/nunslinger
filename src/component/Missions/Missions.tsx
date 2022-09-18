@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
-import fetchApiData from '../fetch/fetchApiData';
 import confessionImage from '../../Assets/Backgrounds/confess.jpeg'
 import DialogBox from '../Missions/DialogBox';
 import './Missions.css';
