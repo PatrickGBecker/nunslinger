@@ -6,14 +6,13 @@ import Enemy from '../Characters/Enemy';
 import gunTrigger from '../../Assets/Models/trigger.png'
 import gamePage from '../../Assets/Backgrounds/battlePage.jpeg'
 import fireFont from '../../Assets/Fonts/FIRE.gif'
-import {fetchApiDataEn, fetchApiDataLa} from '../fetch/fetchApiData';
 import './Game.css';
 import Character from '../Characters/character';
 // import HealthBar from '../HealthBar/HealthBar'
 const music = require('../../Assets/Music/testMusic.mp3');
 
-
 interface Props{
+    celebration: string
     missionCount: number
     gameCount: number
     setMissionCount: any
@@ -22,18 +21,7 @@ interface Props{
 
 const Game = (props: Props) => {
 
-    const [instructions, setInstructions] = useState<any>(false)
-    const [missionCount, setMissionCount] = useState<number>(0)
-    const [gameCount, setGameCount] = useState<number>(0)
-    const [playerShotFirst, setPlayerShotFirst] = useState<boolean>(false)
-    const [enemyShotFirst, setEnemyShotFirst] = useState<boolean>(false)
-    const [fireImage, setFireImage] = useState<string>('')
-    const [fireIndicatorDate, setFireIndicatorDate] = useState<number>(0)
-    const [enemyShotDate, setEnemyShotDate] = useState<number>(0)
-    const [playerShotDate, setPlayerShotDate] = useState<number>(0)
-
-    const hideInstructions = () => {
-        setInstructions(false)
+    //fix it
 
 const priest = new Character(1700, 2500)
 const bishop = new Character(1500, 2000)
@@ -51,32 +39,7 @@ const [playerHasShot, setPlayerHasShot] = useState<boolean>(false)
 const [enemyHasShot, setEnemyHasShot] = useState<boolean>(false)
 const [youWin, setYouWin] = useState<boolean>(false)
 const [youLose, setYouLose] = useState<boolean>(false)
-const [celebrationEn, setCelebrationEn] = useState<string>('')
-const [celebrationLa, setCelebrationLa] = useState<string>('')
-const [isEnglish, setIsEnglish] = useState<boolean>(true)
-const [show, setShow] = useState<any>('')
 let playerShotFirst = false
-
-
-useEffect(() => {
-    fetchApiDataEn()
-      .then(data => {
-        console.log("data: ", data)
-        setCelebrationEn( data.celebrations[0].title )
-      })
-    //   .then(data => console.log('english', data))
-      .catch(err => console.log(err))
-  }, [])
-
-  useEffect(() => {
-    fetchApiDataLa()
-      .then(data => {
-        console.log("data: ", data)
-        setCelebrationLa( data.celebrations[0].title )
-      })
-    //   .then(data => console.log('latin', data))
-      .catch(err => console.log(err))
-  }, [])
 
 
 const hideInstructions = () => {
@@ -142,17 +105,13 @@ const viewInstructions = () => {
         return null;
     }
 }
-    useEffect(() => {
-        if (gameCount === 0) {
-            setInstructions(true)
-        } else {
-            startGame()
-        }
-    }, [])
 
-    const startGame = () => {
+const fireRandomizer = ():number => {
+    let min = Math.ceil(1000);
+    let max = Math.floor(5000);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
-        startTurn()
 const fireIndicatorHelper = () => {
     setFireIndicatorDate(Date.now())
         enemyShoot()
@@ -209,7 +168,7 @@ const compareShots = () => {
 
 const shotFirstHitCheck = () => {
     const playerMinusTwenty = playerHealth - 20 
-    const enemyMinusTwenty = enemyHealth - 100 
+    const enemyMinusTwenty = enemyHealth - 20 
     console.log(playerShotFirst)
     if (playerShotFirst === true) {
         setEnemyHealth(enemyMinusTwenty)
@@ -219,14 +178,8 @@ const shotFirstHitCheck = () => {
         console.log('enemy shot first and hit')
     } else {
         console.log('neither have shot first apparently?')
-
     }
-    const startTurn = () => {
-
-        fireIndicator()
-        enemyShoot()
-        capturePlayerShot()
-        compareShots()
+}
 
 const shotSecondHitCheck = () => {
     const playerMinusTwenty = playerHealth - 20
@@ -240,87 +193,8 @@ const shotSecondHitCheck = () => {
         console.log('enemy shot second and hit')
     } else {
         console.log('someone shot second and missed')
-
     }
-
-    const closeInstructionsStartGame = () => {
-        hideInstructions()
-        startGame()
-    }
-
-    const viewInstructions = () => {
-
-        if (gameCount === 0 && instructions === true) {
-            return (
-                <div className="game-instructions">
-                    <h1>instructions go here</h1>
-                    <button className='dismiss-instructions-button' onClick={closeInstructionsStartGame}>Less reading, more shooting</button>
-                </div>
-            )
-        } else {
-            return null;
-        }
-    }
-
-    const fireRandomizer = (): number => {
-        let min = Math.ceil(1000);
-        let max = Math.floor(5000);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    const fireIndicatorHelper = () => {
-        setFireIndicatorDate(Date.now())
-        setFireImage(fireFont)
-    }
-
-    const fireIndicator: any = () => {
-        setTimeout(fireIndicatorHelper, fireRandomizer())
-    }
-
-    const shotRandomizer = (minTime: number, maxTime: number) => {
-        let min = Math.ceil(minTime);
-        let max = Math.floor(maxTime);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    const enemyShotHelper = () => {
-        setEnemyShotDate(Date.now())
-    }
-
-    const enemyShoot: any = () => {
-        setTimeout(enemyShotHelper, shotRandomizer(1200, 1400))
-    }
-
-    const capturePlayerShot = () => {
-        setPlayerShotDate(Date.now())
-    }
-
-    const compareShots = () => {
-        let subtractedPlayerDate = playerShotDate - fireIndicatorDate
-        let subtractedEnemyDate = enemyShotDate - fireIndicatorDate
-
-        if (subtractedPlayerDate > subtractedEnemyDate) {
-            setEnemyShotFirst(true)
-            setPlayerShotFirst(false)
-        } else if (subtractedPlayerDate < subtractedEnemyDate) {
-            setEnemyShotFirst(false)
-            setPlayerShotFirst(true)
-        } else {
-            setPlayerShotFirst(false)
-            setEnemyShotFirst(false)
-        }
-    }
-
-    const shotSecondHitCheck = () => {
-        let hitRoll = shotRandomizer(0, 3)
-        if (hitRoll === 3) {
-            //decrement hp bar by 20
-        }
-    }
-
-//Add enemyShoot, capturePlayerShot, compareShots, shotSecondHitCheck functions and relevant pieces of state
-
-    //save it as a variable that only renders the div if both conditions are met, put the instructions in the useeffect div
+}
 
 useEffect(() => {
     gameOverCheck()
@@ -366,13 +240,31 @@ const log = () => {
     console.log('post', props.gameCount, props.missionCount)
 }
 
-const toggleLanguages = () => {
-  if (isEnglish === false) {
-    setIsEnglish(true)
-  } else {
-    setIsEnglish(false)
-  }
+// Add enemyShoot, capturePlayerShot, compareShots, shotSecondHitCheck functions and relevant pieces of state 
+
+//save it as a variable that only renders the div if both conditions are met, put the instructions in the useeffect div
+
+/*
+ 
+model healthbars decreases when model is hit.
+model are hit once
+if health bar decreases, model variation changes.
+ 
+const changeHealthBar = () => {
+if (players hit is faster than enemys hit) {
+       players healthBar.value -= 20
+       changeVariation()
+   }
 }
+ 
+const resetHealthBar = () => {
+   if (gameCount === 0) {
+   then healthBar('')
+   }
+}
+ 
+*/
+
 
     return (
         <div className="game-background">
@@ -396,11 +288,7 @@ const toggleLanguages = () => {
                     </div>
                 </div>
                 <div className='fire-container'>
-
-                    <img className='fire-indicator' src={fireImage} />
-
                     {fireIndicatorDate && <img className='fire-indicator' src={fireFont}/>}
-
                 </div>
                 {fireIndicatorDate && <button className='trigger-container' disabled={playerHasShot}>
                     <img className='trigger-button' onClick={capturePlayerShot} src={gunTrigger} alt='gun trigger avatar' />
@@ -410,12 +298,10 @@ const toggleLanguages = () => {
                     <div className='win-screen'>
                         <h1>DEMON EXORCISED</h1>
                         <p>Thanks for kicking ass for The Lord, I mean, for me! Here's your daily bread, sister!</p>
-                        {!isEnglish && celebrationLa}
-                        {isEnglish && celebrationEn}
+                        {props.celebration}
                         <Link to='/missions'>
                             <button className='next-mission-button' onClick={log}>Next Mission</button>
                         </Link>
-                        <button className='toggle-languages' onClick={toggleLanguages}> toggle languages </button>
                     </div>
                 }
 
