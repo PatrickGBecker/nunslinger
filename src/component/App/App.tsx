@@ -2,25 +2,13 @@ import React, { useEffect, useState } from 'react';
 import titleImage from '../../Assets/Backgrounds/cathedral.jpeg'
 import { Route, Link } from 'react-router-dom';
 import Missions from '../Missions/Missions';
-import fetchApiData from '../fetch/fetchApiData';
 import Game from '../Game/Game';
 import './App.css';
 
 const App = () => {
 
-const [celebration, setCelebration] = useState<string>('')
 const [missionCount, setMissionCount] = useState<number>(0)
 const [gameCount, setGameCount] = useState<number>(0)
-
-useEffect(() => {
-  fetchApiData()
-    .then(data => {
-      console.log("data: ", data)
-      setCelebration( data.celebrations[0].title )
-    })
-    // .then(data => console.log(data))
-    .catch(err => console.log(err))
-}, [])
 
     return (
       <div className='App'>
@@ -40,7 +28,7 @@ useEffect(() => {
           </Route>
 
           <Route exact path='/game'>
-            <Game celebration={celebration} missionCount={missionCount} gameCount={gameCount} setMissionCount={setMissionCount} setGameCount={setGameCount}/>
+            <Game missionCount={missionCount} gameCount={gameCount} setMissionCount={setMissionCount} setGameCount={setGameCount}/>
           </Route>
         
       </div>
