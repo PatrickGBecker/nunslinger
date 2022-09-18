@@ -6,6 +6,7 @@ import Enemy from '../Characters/Enemy';
 import gunTrigger from '../../Assets/Models/trigger.png'
 import gamePage from '../../Assets/Backgrounds/battlePage.jpeg'
 import fireFont from '../../Assets/Fonts/FIRE.gif'
+import {fetchApiDataEn, fetchApiDataLa} from '../fetch/fetchApiData';
 import './Game.css';
 import Character from '../Characters/character';
 // import HealthBar from '../HealthBar/HealthBar'
@@ -13,7 +14,6 @@ const music = require('../../Assets/Music/testMusic.mp3');
 
 
 interface Props{
-    celebration: string
     missionCount: number
     gameCount: number
     setMissionCount: any
@@ -51,7 +51,32 @@ const [playerHasShot, setPlayerHasShot] = useState<boolean>(false)
 const [enemyHasShot, setEnemyHasShot] = useState<boolean>(false)
 const [youWin, setYouWin] = useState<boolean>(false)
 const [youLose, setYouLose] = useState<boolean>(false)
+const [celebrationEn, setCelebrationEn] = useState<string>('')
+const [celebrationLa, setCelebrationLa] = useState<string>('')
+const [isEnglish, setIsEnglish] = useState<boolean>(true)
+const [show, setShow] = useState<any>('')
 let playerShotFirst = false
+
+
+useEffect(() => {
+    fetchApiDataEn()
+      .then(data => {
+        console.log("data: ", data)
+        setCelebrationEn( data.celebrations[0].title )
+      })
+    //   .then(data => console.log('english', data))
+      .catch(err => console.log(err))
+  }, [])
+
+  useEffect(() => {
+    fetchApiDataLa()
+      .then(data => {
+        console.log("data: ", data)
+        setCelebrationLa( data.celebrations[0].title )
+      })
+    //   .then(data => console.log('latin', data))
+      .catch(err => console.log(err))
+  }, [])
 
 
 const hideInstructions = () => {
@@ -184,7 +209,7 @@ const compareShots = () => {
 
 const shotFirstHitCheck = () => {
     const playerMinusTwenty = playerHealth - 20 
-    const enemyMinusTwenty = enemyHealth - 20 
+    const enemyMinusTwenty = enemyHealth - 100 
     console.log(playerShotFirst)
     if (playerShotFirst === true) {
         setEnemyHealth(enemyMinusTwenty)
@@ -341,33 +366,13 @@ const log = () => {
     console.log('post', props.gameCount, props.missionCount)
 }
 
-// Add enemyShoot, capturePlayerShot, compareShots, shotSecondHitCheck functions and relevant pieces of state 
-
-//save it as a variable that only renders the div if both conditions are met, put the instructions in the useeffect div
-
-/*
-
-
- 
-model healthbars decreases when model is hit.
-model are hit once
-if health bar decreases, model variation changes.
- 
-const changeHealthBar = () => {
-if (players hit is faster than enemys hit) {
-       players healthBar.value -= 20
-       changeVariation()
-   }
+const toggleLanguages = () => {
+  if (isEnglish === false) {
+    setIsEnglish(true)
+  } else {
+    setIsEnglish(false)
+  }
 }
- 
-const resetHealthBar = () => {
-   if (gameCount === 0) {
-   then healthBar('')
-   }
-}
- 
-*/
-
 
     return (
         <div className="game-background">
@@ -405,10 +410,12 @@ const resetHealthBar = () => {
                     <div className='win-screen'>
                         <h1>DEMON EXORCISED</h1>
                         <p>Thanks for kicking ass for The Lord, I mean, for me! Here's your daily bread, sister!</p>
-                        {props.celebration}
+                        {!isEnglish && celebrationLa}
+                        {isEnglish && celebrationEn}
                         <Link to='/missions'>
                             <button className='next-mission-button' onClick={log}>Next Mission</button>
                         </Link>
+                        <button className='toggle-languages' onClick={toggleLanguages}> toggle languages </button>
                     </div>
                 }
 
