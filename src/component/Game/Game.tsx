@@ -12,6 +12,14 @@ import { fetchApiDataEn, fetchApiDataLa } from '../fetch/fetchApiData';
 // import HealthBar from '../HealthBar/HealthBar'
 const music = require('../../Assets/Music/testMusic.mp3');
 
+interface ICharacterProps {
+    enemyHealth: number;
+    enemyHasShot: boolean;
+    youLose: boolean;
+    gameCount: number;
+    fireIndicatorDate: number;
+}
+
 interface Props {
     missionCount: number
     gameCount: number
@@ -40,7 +48,6 @@ const Game = (props: Props) => {
     const [celebrationEn, setCelebrationEn] = useState<string>('')
     const [celebrationLa, setCelebrationLa] = useState<string>('')
     const [isEnglish, setIsEnglish] = useState<boolean>(true)
-    const [show, setShow] = useState<any>('')
     let playerShotFirst = false
 
 
@@ -351,8 +358,14 @@ const Game = (props: Props) => {
                 }
 
                 <div className="model-container">
-                    <Player />
-                    <Enemy />
+                    <Player playerHealth={playerHealth} enemyHealth={enemyHealth}
+                            playerHasShot={playerHasShot} enemyHasShot={enemyHasShot}
+                            youWin={youWin} youLose={youLose} 
+                    />
+                    <Enemy enemyHealth={enemyHealth} enemyHasShot={enemyHasShot}  
+                           youLose={youLose} gameCount={props.gameCount} 
+                           fireIndicatorDate={fireIndicatorDate}
+                    />
                 </div>
                 <div className='button-style'>
 
