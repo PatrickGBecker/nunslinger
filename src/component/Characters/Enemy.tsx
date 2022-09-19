@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactPlayer from 'react-player'
 import Character from './character';
 import Demon1Bishop from "../../Assets/Models/Demon-1-Bishop.png";
 import Demon2Bishop from "../../Assets/Models/Demon-2-Bishop.png";
@@ -34,6 +35,10 @@ import RevivedBishop from "../../Assets/Models/Revived-Bishop.png";
 import RevivedCardinal from "../../Assets/Models/Revived-Cardinal.png";
 import RevivedPope from "../../Assets/Models/Revived-Pope.png";
 import RevivedPriest from "../../Assets/Models/Revived-Priest.png";
+const death = require('../../Assets/Music/sfx/demondeath.mp3');
+const grunt = require('../../Assets/Music/sfx/demongrunt.mp3');
+const gun = require('../../Assets/Music/sfx/priestbishopcardinalgun.wav');
+const popeGun = require('../../Assets/Music/sfx/popegun.mp3');
 
 interface ICharacterProps {
     playerHealth: number;
@@ -92,9 +97,12 @@ const images = {
 
 const Enemy = ( { enemyHealth, enemyHasShot, youLose, gameCount, fireIndicatorDate }: ICharacterProps) => {
 
-const [initialEnemyHealth, setInitialEnemyHealth] = useState(0) 
-const [enemyImage, setImage] = useState('')
-const [currentCharacter, setCurrentCharacter] = useState<'priest' | 'bishop' | 'cardinal' |'pope'>('priest')
+const [initialEnemyHealth, setInitialEnemyHealth] = useState(0);
+const [enemyImage, setImage] = useState('');
+const [gruntFX, setGruntFX] = useState(false);
+const [shotFX, setShotFX] = useState(false);
+const [deathFX, setDeathFX] = useState(false);
+const [currentCharacter, setCurrentCharacter] = useState<'priest' | 'bishop' | 'cardinal' |'pope'>('priest');
 //add bishop, pope to useState types^^^^
 useEffect(() => {
     setInitialEnemyHealth(enemyHealth)
@@ -122,8 +130,12 @@ useEffect(() => {
     if (enemyHasShot) {
         console.log("enemyTest: ", enemyHasShot)
         setImage(images[currentCharacter].shooting1Image)
+        setShotFX(true)
+        setGruntFX(false)
     } else if (fireIndicatorDate) {
         setImage(images[currentCharacter].shooting2Image)
+        setShotFX(true)
+        setShotFX(false)
     }
 }, [enemyHasShot, fireIndicatorDate])
     
@@ -131,6 +143,7 @@ useEffect(() => {
  useEffect(() => {
      if (enemyHealth === 0) {
         setImage(images[currentCharacter].dyingImage)
+        setDeathFX(true)
         setTimeout(() => {
             setImage(images[currentCharacter].demonLeaving1)
         }, 1000)
@@ -142,6 +155,7 @@ useEffect(() => {
         }, 3000)
      } else if (enemyHealth < initialEnemyHealth) {
          setImage(images[currentCharacter].hitImage)
+         setGruntFX(true)
          setInitialEnemyHealth(enemyHealth)
      }
  }, [enemyHealth])      
@@ -153,10 +167,49 @@ useEffect(() => {
 }, [youLose])
 
     return (
-        <div className="right-side">
-                <div className="enemy-image">
-                    <img src={enemyImage} />
+        <div>
+            {gruntFX && 
+                <div className="grunt">
+                    <ReactPlayer
+                        className='music-player'
+                        url={grunt}
+                        width='0vw'
+                        height='0vh'
+                        volume={0.2}
+                        playing={true}
+                    />
                 </div>
+            }
+            {deathFX &&
+                <div className="death">
+                    <ReactPlayer
+                        className='music-player'
+                        url={death}
+                        width='0vw'
+                        height='0vh'
+                        volume={0.2}
+                        playing={true}
+                    />
+                </div>
+            }       
+            {shotFX && 
+                <div className="gun">
+                    <ReactPlayer
+                    className='music-player'
+                    url={gun}
+                    width='0vw'
+                    height='0vh'
+                    volume={0.2}
+                    playing={true}
+                    />
+                </div>
+            }
+                <div className="right-side">
+                        <div className="enemy-image">
+                            <img src={enemyImage} />
+                        </div>
+                </div>
+
         </div>
     );
 }
