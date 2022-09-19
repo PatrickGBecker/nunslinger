@@ -2,11 +2,10 @@ import React, { useMemo } from "react";
 import { animated, useTransition } from "react-spring";
 
 interface IMessageProps {
-    message: string
-    isFirstMessage: boolean
+    message: any
 }
 
-const Message = ({ message, isFirstMessage }: IMessageProps) => {
+const Message = ({ message }: IMessageProps) => {
     const items = useMemo(
         () =>
             message.split("").map((letter:string, index:number) => ({
@@ -18,8 +17,8 @@ const Message = ({ message, isFirstMessage }: IMessageProps) => {
     const transitions = useTransition(items, {
         trail: 35,
         from: { display: "none" },
-        enter: { display: "" },
-        delay: isFirstMessage ? 2000 : 0,
+        enter: { display: "" }
+        // delay: message[0] ? 2000 : 0,
     });
     return (
         <div className="DialogMessage">
