@@ -70,7 +70,13 @@ progress {
     src: url(../../Assets/Fonts/angelWish.ttf)
   }
 
-.next-mission-button, .back-to-main-page {
+.win-screen-buttons {
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
     font-family: Imported;
     font-size: 75px;
 }
@@ -86,20 +92,59 @@ progress {
 }
 
 .fire-indicator {
-    position: fixed;
     height: 20vh;
     width: 20vw;
-    z-index: +5;
 }
 
+.game-instructions {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #880808;
+    width: 40vw;
+    height: 50vh;
+    border: 10px solid #181718;
+    border-radius: 15px;
+    color: white
+}
+
+
+
 .win-screen {
-    position: fixed;
-    z-index: +5;
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #880808;
+        width: 40vw;
+        height: 50vh;
+        border: 10px solid #181718;
+        border-radius: 15px;
+        color: white
+}
+
+.demon-exorcised {
+    width: 60%;
+    height: 40%;
+    margin: 5vh;
 }
 
 .lose-screen {
-    position: fixed;
-    z-index: +5;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #181718;
+    width: 40vw;
+    height: 50vh;
+    border-radius: 15px;
+    color: aliceblue
+}
+
+.failure-buttons {
+    display: flex;
+    flex-direction: column;
 }
 
 .trigger-button-container {
