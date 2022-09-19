@@ -15,7 +15,7 @@ const [gameCount, setGameCount] = useState<number>(0)
       <div className='App'>
        
           <Route exact path='/' >
-            <div className='title-page' style={{backgroundImage: `url(${titleImage}`}}>
+            <div className='title-page'>
               <h1 className='main-title'>NUNSLINGER</h1>
               <Link to='/missions'>
                 <div className='play-game-button-container'>
@@ -23,9 +23,7 @@ const [gameCount, setGameCount] = useState<number>(0)
                 </div>
               </Link>
               <div className='logo-container'>
-                <p>©Black Cat City</p>
-                <img className='logo' src={BlackCatCity}/>
-                <p>Gameworks, LLC 2022</p>
+                <p>©Black Cat City Gameworks, LLC 2022</p>
               </div>
             </div>
           </Route>

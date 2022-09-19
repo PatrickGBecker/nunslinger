@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&display=swap');
 
 App {
   text-align: center;
@@ -10,48 +11,57 @@ App {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-}
-
-@font-face {
-  font-family: Imported;
-  src: url(../../Assets/Fonts/angelWish.ttf)
+  align-items: center;
+  background: url('../../Assets/Backgrounds/cathedral.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 h1 {
-  font-family: Imported;
   font-size: 100px;
   color: black;
-  -webkit-text-stroke: 0.25px white;
+  /* -webkit-text-stroke: 0.25px white; */
 }
 
 .main-title {
-  font-family: Imported;
+  flex-direction: column;
+  font-family: 'Cinzel Decorative', cursive;
   font-size: 200px;
   color: black;
-  -webkit-text-stroke: 0.25px white;
+  padding-bottom: 30vh;
+  -webkit-text-stroke: 1.5px white;
 }
 
 .play-game-button-container {
-  display: flex;
-  flex-direction: column;
   justify-content: center;
-  padding-left: 40%
 }
 
 .play-game-button {
-  font-family: Imported;
-  font-size: 55px;
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: 40px;
+  color: whitesmoke;
   height: 10vh;
-  width: 20vw;
+  width: 26vw;
+  background: none;
+  border-radius: 15px;
+  -webkit-text-stroke: 1px white;
+  box-shadow: 0px 0px 2px 2px whitesmoke;
 }
 
+.play-game-button:hover,
+.play-game-button:focus {
+    box-shadow:
+        inset -3.5em 0 0 0 var(--hover),
+        inset 3.5em 0 0 0 var(--hover);
+        color: red;
+    }
+
 .logo-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: baseline;
+  justify-content: flex-start;
+  align-self: flex-end;
   font-family: 'Amatic SC', cursive;
   font-size: 1.5rem;
+  padding-right: 2vw;
   color: rgb(254, 251, 220);
   text-shadow: 2px 4px 5px rgba(0, 0, 0, 0.3);
 }

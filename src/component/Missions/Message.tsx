@@ -25,7 +25,7 @@ const Message = ({ message }: IMessageProps) => {
             {transitions((props, item) => {
                 return (
                     <animated.span style={props}>
-                        {item.item}
+                         {item.item}
                     </animated.span>
                 );
             })}
