@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Character from './character';
 import Demon1Bishop from "../../Assets/Models/Demon-1-Bishop.png";
 import Demon2Bishop from "../../Assets/Models/Demon-2-Bishop.png";
+import Demon1Cardinal from "../../Assets/Models/Demon-Leaving1-Cardinal.png";
+import Demon2Cardinal from "../../Assets/Models/Demon-Leaving2-Cardinal.png";
 import DemonLeaving1 from "../../Assets/Models/Demon-Leaving-1.png";
 import DemonLeaving2 from "../../Assets/Models/Demon-Leaving-2.png";
 import DemonLeaving1Pope from "../../Assets/Models/Demon-Leaving-1-Pope.png";
@@ -9,21 +11,27 @@ import DemonLeaving2Pope from "../../Assets/Models/Demon-Leaving-2-Pope.png";
 import DemonSpirit from "../../Assets/Models/Demon-Spirit.png";
 import DevilSpirit from "../../Assets/Models/Devil-Spirit-Side.png"
 import DyingBishop from "../../Assets/Models/Dying-Bishop.png";
+import DyingCardinal from "../../Assets/Models/Dying-Cardinal.png";
 import DyingPope from "../../Assets/Models/Dying-Pope.png";
 import DyingPriest from "../../Assets/Models/Dying-Priest.png"
 import ForwardBishop from "../../Assets/Models/Forward-Bishop.png";
+import ForwardCardinal from "../../Assets/Models/Forward-Cardinal.png";
 import ForwardPope from "../../Assets/Models/Forward-Pope.png";
 import ForwardPriest from "../../Assets/Models/Forward-Priest.png";
 import HitBishop from "../../Assets/Models/Hit-Bishop.png";
+import HitCardinal from "../../Assets/Models/Hit-Cardinal.png";
 import HitPope from "../../Assets/Models/Hit-Pope.png";
 import HitPriest from "../../Assets/Models/Hit-Priest.png";
 import Shooting1Bishop from "../../Assets/Models/Shoot-1-Bishop.png";
 import Shooting2Bishop from "../../Assets/Models/Shoot-2-Bishop.png";
+import Shooting1Cardinal from "../../Assets/Models/Shoot-1-Cardinal.png";
+import Shooting2Cardinal from "../../Assets/Models/Shoot-2-Cardinal.png";
 import Shooting1Pope from "../../Assets/Models/Shooting-1-Pope.png";
 import Shooting2Pope from "../../Assets/Models/Shooting-2-Pope.png";
 import Shooting1Priest from "../../Assets/Models/Shoot-Right-Priest.png";
 import Shooting2Priest from "../../Assets/Models/Shoot-Left-Priest.png";
 import RevivedBishop from "../../Assets/Models/Revived-Bishop.png";
+import RevivedCardinal from "../../Assets/Models/Revived-Cardinal.png";
 import RevivedPope from "../../Assets/Models/Revived-Pope.png";
 import RevivedPriest from "../../Assets/Models/Revived-Priest.png";
 
@@ -59,6 +67,16 @@ const images = {
         demonLeaving2: Demon2Bishop,
         revivedImage: RevivedBishop
     },
+    cardinal: {
+        forwardImage: ForwardCardinal,
+        shooting1Image: Shooting1Cardinal,
+        shooting2Image: Shooting2Cardinal,
+        hitImage: HitCardinal,
+        dyingImage: DyingCardinal,
+        demonLeaving1: Demon1Cardinal,
+        demonLeaving2: Demon2Cardinal,
+        revivedImage: RevivedCardinal
+    },
     pope: {
         forwardImage: ForwardPope,
         shooting1Image: Shooting1Pope,
@@ -76,7 +94,7 @@ const Enemy = ( { enemyHealth, enemyHasShot, youLose, gameCount, fireIndicatorDa
 
 const [initialEnemyHealth, setInitialEnemyHealth] = useState(0) 
 const [enemyImage, setImage] = useState('')
-const [currentCharacter, setCurrentCharacter] = useState<'priest' | 'bishop' | 'pope'>('priest')
+const [currentCharacter, setCurrentCharacter] = useState<'priest' | 'bishop' | 'cardinal' |'pope'>('priest')
 //add bishop, pope to useState types^^^^
 useEffect(() => {
     setInitialEnemyHealth(enemyHealth)
@@ -90,6 +108,9 @@ useEffect(() => {
        setCurrentCharacter('bishop')
        setImage(images.bishop.forwardImage)
     } else if (gameCount === 2) {
+        setCurrentCharacter('cardinal')
+        setImage(images.cardinal.forwardImage)
+    } else if (gameCount === 3) {
         setCurrentCharacter('pope')
         setImage(images.pope.forwardImage)
     }
