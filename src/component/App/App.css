@@ -17,6 +17,13 @@
 
 h1 {
   font-family: Imported;
+  font-size: 100px;
+  color: black;
+  -webkit-text-stroke: 0.25px white;
+}
+
+.main-title {
+  font-family: Imported;
   font-size: 200px;
   color: black;
   -webkit-text-stroke: 0.25px white;
