@@ -86,9 +86,31 @@ progress {
 }
 
 .fire-indicator {
-    
+    position: fixed;
     height: 20vh;
     width: 20vw;
+    z-index: +5;
+}
+
+.win-screen {
+    position: fixed;
+    z-index: +5;
+}
+
+.lose-screen {
+    position: fixed;
+    z-index: +5;
+}
+
+.trigger-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items: center;
+}
+
+.back-to-main-page {
+    align-self: flex-end;
 }
 
 /* .hidden {
