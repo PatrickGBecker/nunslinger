@@ -51,6 +51,7 @@ const Game = (props: Props) => {
     const [celebrationEn, setCelebrationEn] = useState<string>('')
     const [celebrationLa, setCelebrationLa] = useState<string>('')
     const [isEnglish, setIsEnglish] = useState<boolean>(true)
+    const [secretCelebration, setSecretCelebration] = useState<boolean>(false)
     let playerShotFirst = false
 
 
@@ -321,6 +322,11 @@ const Game = (props: Props) => {
         }
     }
 
+    const showSecretCelebration = () => {
+        console.log('secretCelebration!!!')
+        setSecretCelebration(true)
+    }
+
     return (
         <div className="game-background">
             <section className='game' style={{ backgroundImage: `url(${gamePage}` }}>
@@ -338,6 +344,7 @@ const Game = (props: Props) => {
                     <div className='player-health-bar'>
                         <progress className='player-healthBar' id="health" value={playerHealth} max="100"></progress>
                     </div>
+                    <button className='secret-celebration-button' onClick={showSecretCelebration}></button>
                     <div className='enemy-health-bar'>
                         <progress className='enemy-healthBar' id="health" value={enemyHealth} max="100"></progress>
                     </div>
@@ -348,6 +355,26 @@ const Game = (props: Props) => {
                 </div>
 
                 {youWin === true &&
+                    <div className='win-screen'>
+                        <h1 className='demon-exorcised'>DEMON EXORCISED</h1>
+                        <h2>Thanks for kicking ass for The Lord, I mean, for me! Here's your daily bread, sister!</h2>
+                        <h2>Today is</h2>
+                        <h2>{!isEnglish && celebrationLa}</h2>
+                        <h2>{isEnglish && celebrationEn}</h2>
+                        <h2>Rejoice and be glad, because great is your reward in heaven!</h2>
+                        <div className='win-screen-buttons}'>
+                            <Link to='/missions'>
+                                <button className='next-mission-button' onClick={increaseGameCount}>Next Mission</button>
+                            </Link>
+                            <Link to='/'>
+                            <button className='back-to-main-page'>Retire from Hunting?</button>
+                            </Link>
+                            <button className='toggle-languages' onClick={toggleLanguages}> toggle languages </button>
+                        </div>
+                    </div>
+                }
+
+                {secretCelebration === true &&
                     <div className='win-screen'>
                         <h1 className='demon-exorcised'>DEMON EXORCISED</h1>
                         <h2>Thanks for kicking ass for The Lord, I mean, for me! Here's your daily bread, sister!</h2>
