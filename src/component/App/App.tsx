@@ -3,6 +3,7 @@ import titleImage from '../../Assets/Backgrounds/cathedral.jpeg'
 import { Route, Link } from 'react-router-dom';
 import Missions from '../Missions/Missions';
 import Game from '../Game/Game';
+import BlackCatCity from "../../Assets/Models/BlackCatCity-Logo.png"
 import './App.css';
 
 const App = () => {
@@ -17,9 +18,15 @@ const [gameCount, setGameCount] = useState<number>(0)
             <div className='title-page' style={{backgroundImage: `url(${titleImage}`}}>
               <h1 className='main-title'>NUNSLINGER</h1>
               <Link to='/missions'>
-                <button className='play-game-button'>Confess Your Sins</button>
+                <div className='play-game-button-container'>
+                  <button className='play-game-button'>Confess Your Sins</button>
+                </div>
               </Link>
-              <p>©  Gameworks Studios LLC Incorporated 2022</p>
+              <div className='logo-container'>
+                <p>©Black Cat City</p>
+                <img className='logo' src={BlackCatCity}/>
+                <p>Gameworks, LLC 2022</p>
+              </div>
             </div>
           </Route>
 
