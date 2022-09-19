@@ -34,16 +34,16 @@
 
 .DialogWindow {
     position: absolute;
-    margin-left: 35%;
+    margin-left: 25%;
     background-color: #e2b27e;
     border: solid;
     border-image: "../Assets/Background/borderbox.png" 28 / 10px 10px 10px 10px stretch;
     padding: 15px;
-    width: 30vw;
+    width: 45vw;
 }
 
 .DialogTitle {
-    font-size: 1.1rem;
+    font-size: 20rem;
     font-weight: bold;
     margin-bottom: 15px;
 }
@@ -55,3 +55,6 @@
     text-align: end;
 }
 
+.DialogMessage span {
+    font-size: 2rem;
+}
