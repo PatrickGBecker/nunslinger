@@ -1,12 +1,41 @@
-.player-health-bar {
-    border: 1px solid black;
-}
+
+
+progress {
+    border-radius: 30px; 
+    width: 85%;
+    height: 75%;
+    margin-top: 7.5%;
+    margin-bottom: 10%;
+  }
+  progress::-webkit-progress-bar {
+    background-color: #eaa846;
+    border-radius: 15px;
+    box-shadow: 0px 0px 2px 2px #eaa846; 
+  }
+  progress::-webkit-progress-value {
+    background-color: #880808;
+    border-radius: 15px;
+    box-shadow: 0px 0px 2px 2px #eaa846; 
+  }
 
 .enemy-health-bar {
-    border: 1px solid black;
+    width: 15vw;
+    height: 100%;;
+    background-image: url(../../Assets/Backgrounds/golden-new-video-frame-background-image-11.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.player-health-bar {
+    width: 15vw;
+    height: 100%;
+    background-image: url(../../Assets/Backgrounds/golden-new-video-frame-background-image-11.png);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .health-bar-container {
+    height: 15vh;
     display: flex;
     justify-content: space-between;
     padding: 10px;
@@ -49,6 +78,7 @@
 .model-container {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
 }
 
 .fire-container {
