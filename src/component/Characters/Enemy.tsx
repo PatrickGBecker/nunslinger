@@ -29,9 +29,12 @@ import RevivedPope from "../../Assets/Models/Revived-Pope.png";
 import RevivedPriest from "../../Assets/Models/Revived-Priest.png";
 
 interface ICharacterProps {
+    playerHealth: number;
     enemyHealth: number;
+    playerHasShot: boolean;
     enemyHasShot: boolean;
     youLose: boolean;
+    youWin: boolean;
     gameCount: number;
     fireIndicatorDate: number;
 }
@@ -131,14 +134,9 @@ useEffect(() => {
 
     return (
         <div className="right-side">
-            <div className="health-div">
-                <EnemyHealthBar/>
+            <div className="enemy-image">
+                <img src={enemyImage} />
             </div>
-                <div className="enemy-image">
-                    <img src={enemyImage} />
-                </div>
-            
-            
         </div>
     );
 }

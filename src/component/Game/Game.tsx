@@ -13,9 +13,12 @@ import { fetchApiDataEn, fetchApiDataLa } from '../fetch/fetchApiData';
 const music = require('../../Assets/Music/testMusic.mp3');
 
 interface ICharacterProps {
+    playerHealth: number;
     enemyHealth: number;
+    playerHasShot: boolean;
     enemyHasShot: boolean;
     youLose: boolean;
+    youWin: boolean;
     gameCount: number;
     fireIndicatorDate: number;
 }
@@ -360,10 +363,12 @@ const Game = (props: Props) => {
                 <div className="model-container">
                     <Player playerHealth={playerHealth} enemyHealth={enemyHealth}
                             playerHasShot={playerHasShot} enemyHasShot={enemyHasShot}
-                            youWin={youWin} youLose={youLose} 
+                            youWin={youWin} youLose={youLose} gameCount={props.gameCount} 
+                            fireIndicatorDate={fireIndicatorDate}
                     />
-                    <Enemy enemyHealth={enemyHealth} enemyHasShot={enemyHasShot}  
-                           youLose={youLose} gameCount={props.gameCount} 
+                    <Enemy playerHealth={playerHealth} enemyHealth={enemyHealth}
+                           playerHasShot={playerHasShot} enemyHasShot={enemyHasShot}
+                           youWin={youWin} youLose={youLose} gameCount={props.gameCount} 
                            fireIndicatorDate={fireIndicatorDate}
                     />
                 </div>

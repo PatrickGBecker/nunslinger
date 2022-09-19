@@ -1,73 +1,67 @@
-import React, { useState } from 'react';
-import PlayerHealthBar from "../HealthBar/PlayerHealthBar";
+import React, { useState, useEffect } from 'react';
 import './Player.css';
+import DeadBeretta from "../../Assets/Models/Dead-Beretta.png";
+import DyingBeretta from "../../Assets/Models/Dying-Beretta.png";
+import HitBeretta from "../../Assets/Models/Hit-Beretta.png";
 import PrayBeretta from "../../Assets/Models/Pray-Beretta.png";
 import Shooting1Beretta from "../../Assets/Models/Shoot-Right-Beretta.png";
 import Shooting2Beretta from "../../Assets/Models/Shoot-Left-Beretta.png";
-import HitBeretta from "../../Assets/Models/Hit-Beretta.png";
-import DyingBeretta from "../../Assets/Models/Dying-Beretta.png";
-import DeadBeretta from "../../Assets/Models/Dead-Beretta.png";
 
 interface ICharacterProps {
     playerHealth: number;
     enemyHealth: number;
     playerHasShot: boolean;
     enemyHasShot: boolean;
-    youWin: boolean;
     youLose: boolean;
+    youWin: boolean;
+    gameCount: number;
+    fireIndicatorDate: number;
 }
 
 
-const Player = (props: ICharacterProps) => {
+const Player = ({ playerHealth, playerHasShot, youLose, youWin, fireIndicatorDate}: ICharacterProps) => {
 
 const [playerImage, setImage] = useState<string>(PrayBeretta)
-    // this page is for the fight page screen view.
-    // let navigate = useNavigate();
-
-    // state variables for healthbar
-    const [noFirstShot, setFirstShot] = useState(true);
-    const [numOfShots, setNumOfShots] = useState(0);
-    const [health, setHealth] = useState(100);
-   
-
-    /* START OF FUNCTIONS FOR HEALTHBAR */
-    function CompleteMove() {
-        if (numOfShots !== 0 && !noFirstShot) {
-            setNumOfShots(numOfShots - 1);
-
-            // if (numOfShots === 1) {
-            //     navigate("/Playerwin");
-            // }
+const [initialEnemyHealth, setInitialPlayerHealth] = useState(0) 
+    
+    useEffect(() => {
+        setInitialPlayerHealth(playerHealth)
+    }, [])
+    //make function that checks game level and selects the enemy accordingly, make it then assign models and fire times accordingly as well
+    useEffect(() => {
+        if (playerHasShot) {
+            setImage(Shooting1Beretta)
+        } else if (fireIndicatorDate) {
+            setImage(Shooting2Beretta)
         }
-        // Attack(noFirstShot ? 0 : health / numOfShots);
+    }, [playerHasShot, fireIndicatorDate])
 
-        if (health < 6) {
-            setImage(HitBeretta);
-        } else if (numOfShots < 5) {
-            setImage(HitBeretta);
-        } else {
-            setImage(HitBeretta);
+
+    useEffect(() => {
+        if (playerHealth === 0) {
+            setImage(DyingBeretta)
+            setTimeout(() => {
+                setImage(DeadBeretta)
+            }, 1000)
+        } else if (playerHealth < initialEnemyHealth) {
+            setImage(HitBeretta)
+            setInitialPlayerHealth(playerHealth)
         }
-    }
+    }, [playerHealth])
 
+    useEffect(() => {
+        if (youWin) {
+            setImage(PrayBeretta)
+        }
+    }, [youWin])
+       //add bishop, pope to useState types^^^^
 
-const changeImage = () => {
-    if (playerImage !== Shooting1Beretta) {
-        setImage(Shooting1Beretta)
-    } else {
-        setImage(Shooting2Beretta)
-    }
-} 
-
-    return (
-             <div className="right-side">
-                <div className="health-div">
-                     <PlayerHealthBar />
-                </div>
-                <div className="player-image">
-                    <img src={playerImage} onClick={changeImage}/>
-                </div>
+     return (
+         <div className="right-side">
+            <div className="player-image">
+                <img src={playerImage} />
             </div>
+        </div>
     );
 }
 
