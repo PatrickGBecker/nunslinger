@@ -1,46 +1,64 @@
-# Getting Started with Create React App
+# NUNSLINGER
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Table of Contents
+  - [Introduction](#introduction)
+  - [Technologies](#technologies)
+  - [Features](#features)
+  - [Illustrations](#illustrations)
+  - [Deployed Page](#deployed-page)
+  - [Possible Future Extensions](#possible-future-extensions)
+  - [Set Up](#set-up)
+  - [Organizational Resources](#organizational-resources)
+  - [Sources](#sources)
+  - [Contributors](#contributors)
+  - [Project Specs](#project-specs)
 
-In the project directory, you can run:
+## Introduction
 
-### `npm start`
+  Visit NUNSLINGER to...
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Technologies
+  - JavaScript
+  - React
+  - TypeScript
+  - Cypress
+  - HTML
+  - CSS
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Features
+   - 
 
-### `npm test`
+## Illustrations
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![]()
 
-### `npm run build`
+## Deployed Page
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Visit our published NUNSLINGER page [here]()
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Possible Future Extensions
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  - 
 
-### `npm run eject`
+## Set Up
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Organizational Resources
+- [Docs](https://docs.google.com/document/d/1ejd72VJvz1fBGo9zb4sQglaZmy-ikIijC0kNotdj_ZA/edit)
+- [Figma Wireframe](https://www.figma.com/file/TEV32FeowrMJRpjK7yFxr5/NUNSlinger?node-id=0%3A1)
+- [Figma Board](https://www.figma.com/file/WlVG75cGsY5loJeXPS54LR/NUNSlinger-Component-Map?node-id=0%3A1)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Sources
+  - [MDN](http://developer.mozilla.org/en-US/)
+  - [W3Schools](https://www.w3schools.com/)
+  - [CSS-TRICKS](https://css-tricks.com/)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Contributors
+  - [Emma Russell](https://github.com/nairnairnair)
+  - [Patrick Garrett Becker](https://github.com/PatrickGBecker)
+  - [Cleveland Ticoalu](https://gist.github.com/csmucker83)
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Project Specs
+  - The project spec & rubric can be found [here](https://frontend.turing.edu/projects/module-1/ideabox-group.html)
