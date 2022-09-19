@@ -8,8 +8,17 @@ import HitBeretta from "../../Assets/Models/Hit-Beretta.png";
 import DyingBeretta from "../../Assets/Models/Dying-Beretta.png";
 import DeadBeretta from "../../Assets/Models/Dead-Beretta.png";
 
+interface ICharacterProps {
+    playerHealth: number;
+    enemyHealth: number;
+    playerHasShot: boolean;
+    enemyHasShot: boolean;
+    youWin: boolean;
+    youLose: boolean;
+}
 
-const Player = () => {
+
+const Player = (props: ICharacterProps) => {
 
 const [playerImage, setImage] = useState<string>(PrayBeretta)
     // this page is for the fight page screen view.
@@ -40,13 +49,6 @@ const [playerImage, setImage] = useState<string>(PrayBeretta)
             setImage(HitBeretta);
         }
     }
-
-    // decreases health.
-    // function Attack(inc) {
-    //     if (health > 0) {
-    //         setHealth(health - inc);
-    //     }
-    // }
 
 
 const changeImage = () => {
