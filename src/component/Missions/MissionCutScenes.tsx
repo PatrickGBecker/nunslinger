@@ -63,7 +63,7 @@ const MissionCutScenes = {
         `Father Felix: There is no time! You must go!`,
         `Sister Beretta: What?`,
         `Father Felix: Th-the Supreme Pontiff! The Bishop of Rome! It's, he's, His Holiness is-`,
-        `Sister Beretta: Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me. Let's ride.` 
+        `Sister Beretta: Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me. In nomine Patris et Filii, et Spiritus Sanсti, Let's ride.` 
     ]
 }
 
