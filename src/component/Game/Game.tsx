@@ -135,7 +135,15 @@ const Game = (props: Props) => {
         if (props.gameCount === 0 && instructions === true) {
             return (
                 <div className="game-instructions">
-                    <h1>instructions go here</h1>
+                    <h1>Time to exorcise!</h1>
+                    <h2>When the FIRE indicator appears, click the TRIGGER to shoot.</h2>
+                    <h2>If you shoot first, you're guaranteed to hit!</h2>
+                    <h2>Shoot second, and your shot is not likely to connect.</h2>
+                    <h2>It could happen, but don't count on it!</h2>
+                    <h2>Your life force and the demon's hold on its possessee will deplete when shot.</h2>
+                    <h2>Outgun your demonic foe and save that priest!</h2>
+                    <h2>GODSPEED!</h2>
+                    
                     <button className='dismiss-instructions-button' onClick={closeInstructionsStartGame}>Less reading, more shooting</button>
                 </div>
             )
@@ -341,23 +349,41 @@ const Game = (props: Props) => {
 
                 {youWin === true &&
                     <div className='win-screen'>
-                        <h1>DEMON EXORCISED</h1>
-                        <p>Thanks for kicking ass for The Lord, I mean, for me! Here's your daily bread, sister!</p>
-                        {!isEnglish && celebrationLa}
-                        {isEnglish && celebrationEn}
-                        <Link to='/missions'>
-                            <button className='next-mission-button' onClick={increaseGameCount}>Next Mission</button>
-                        </Link>
-                        <button className='toggle-languages' onClick={toggleLanguages}> toggle languages </button>
+                        <h1 className='demon-exorcised'>DEMON EXORCISED</h1>
+                        <h2>Thanks for kicking ass for The Lord, I mean, for me! Here's your daily bread, sister!</h2>
+                        <h2>Today is</h2>
+                        <h2>{!isEnglish && celebrationLa}</h2>
+                        <h2>{isEnglish && celebrationEn}</h2>
+                        <h2>Rejoice and be glad, because great is your reward in heaven!</h2>
+                        <div className='win-screen-buttons}'>
+                            <Link to='/missions'>
+                                <button className='next-mission-button' onClick={increaseGameCount}>Next Mission</button>
+                            </Link>
+                            <Link to='/'>
+                            <button className='back-to-main-page'>Retire from Hunting?</button>
+                            </Link>
+                            <button className='toggle-languages' onClick={toggleLanguages}> toggle languages </button>
+                        </div>
                     </div>
                 }
 
                 {youLose === true &&
                     <div className='lose-screen'>
                         <h1>AND THEN THERE WERE NUN</h1>
-                        <button className='next-mission-button-failure' onClick={startGame}>Try Again</button>
+                        <div className='failure-buttons'>
+                            <button className='next-mission-button-failure' onClick={startGame}>Try Again</button>
+                            <Link to='/'>
+                            <button className='back-to-main-page'>Retire from Hunting?</button>
+                            </Link>
+                        </div>
                     </div>
                 }
+
+                <div className="trigger-button-container">
+                    {fireIndicatorDate && <button className='trigger-container' disabled={playerHasShot}>
+                        <img className='trigger-button' onClick={capturePlayerShot} src={gunTrigger} alt='gun trigger avatar' />
+                    </button>}
+                </div>
 
                 <div className="model-container">
                 <Player playerHealth={playerHealth} enemyHealth={enemyHealth}
@@ -371,15 +397,7 @@ const Game = (props: Props) => {
                            fireIndicatorDate={fireIndicatorDate}
                     />
                 </div>
-                <div className="trigger-button-container">
-                    {fireIndicatorDate && <button className='trigger-container' disabled={playerHasShot}>
-                        <img className='trigger-button' onClick={capturePlayerShot} src={gunTrigger} alt='gun trigger avatar' />
-                    </button>}
-                    
-                    <Link to='/'>
-                        <button className='back-to-main-page'>Retire from Hunting?</button>
-                    </Link>
-                </div>
+
             </section>
         </div>
     )
