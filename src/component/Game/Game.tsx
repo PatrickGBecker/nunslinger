@@ -13,9 +13,12 @@ import { fetchApiDataEn, fetchApiDataLa } from '../fetch/fetchApiData';
 const music = require('../../Assets/Music/testMusic.mp3');
 
 interface ICharacterProps {
+    playerHealth: number;
     enemyHealth: number;
+    playerHasShot: boolean;
     enemyHasShot: boolean;
     youLose: boolean;
+    youWin: boolean;
     gameCount: number;
     fireIndicatorDate: number;
 }
@@ -279,7 +282,8 @@ const Game = (props: Props) => {
 
         console.log('you win nice lady')
         setYouWin(true)
-        increaseMissionAndGameCount()
+        increaseMissionCount()
+   
     }
 
     const nextRound = () => {
@@ -289,16 +293,16 @@ const Game = (props: Props) => {
         }, 1000);
     }
 
-    const increaseMissionAndGameCount = () => {
+    const increaseMissionCount = () => {
         console.log('pre', props.gameCount, props.missionCount)
         const missionIncremented = props.missionCount + 1
-        const gameIncremented = props.gameCount + 1
         props.setMissionCount(missionIncremented)
-        props.setGameCount(gameIncremented)
     }
 
-    const log = () => {
-        console.log('post', props.gameCount, props.missionCount)
+    const increaseGameCount = () => {
+        console.log('pre', props.gameCount, props.missionCount)
+        const gameIncremented = props.gameCount + 1
+        props.setGameCount(gameIncremented)
     }
 
     const toggleLanguages = () => {
@@ -323,19 +327,17 @@ const Game = (props: Props) => {
                 />
 
                 <div className='health-bar-container'>
-                    <div className='player-health-bar'>💃
+                    <div className='player-health-bar'>
                         <progress className='player-healthBar' id="health" value={playerHealth} max="100"></progress>
                     </div>
-                    <div className='enemy-health-bar'>😈
+                    <div className='enemy-health-bar'>
                         <progress className='enemy-healthBar' id="health" value={enemyHealth} max="100"></progress>
                     </div>
                 </div>
                 <div className='fire-container'>
                     {fireIndicatorDate && <img className='fire-indicator' src={fireFont} />}
+                    {viewInstructions()}
                 </div>
-                {fireIndicatorDate && <button className='trigger-container' disabled={playerHasShot}>
-                    <img className='trigger-button' onClick={capturePlayerShot} src={gunTrigger} alt='gun trigger avatar' />
-                </button>}
 
                 {youWin === true &&
                     <div className='win-screen'>
@@ -344,7 +346,7 @@ const Game = (props: Props) => {
                         {!isEnglish && celebrationLa}
                         {isEnglish && celebrationEn}
                         <Link to='/missions'>
-                            <button className='next-mission-button' onClick={log}>Next Mission</button>
+                            <button className='next-mission-button' onClick={increaseGameCount}>Next Mission</button>
                         </Link>
                         <button className='toggle-languages' onClick={toggleLanguages}> toggle languages </button>
                     </div>
@@ -358,21 +360,25 @@ const Game = (props: Props) => {
                 }
 
                 <div className="model-container">
-                    <Player playerHealth={playerHealth} enemyHealth={enemyHealth}
+                <Player playerHealth={playerHealth} enemyHealth={enemyHealth}
                             playerHasShot={playerHasShot} enemyHasShot={enemyHasShot}
-                            youWin={youWin} youLose={youLose} 
+                            youWin={youWin} youLose={youLose} gameCount={props.gameCount} 
+                            fireIndicatorDate={fireIndicatorDate}
                     />
-                    <Enemy enemyHealth={enemyHealth} enemyHasShot={enemyHasShot}  
-                           youLose={youLose} gameCount={props.gameCount} 
+                    <Enemy playerHealth={playerHealth} enemyHealth={enemyHealth}
+                           playerHasShot={playerHasShot} enemyHasShot={enemyHasShot}
+                           youWin={youWin} youLose={youLose} gameCount={props.gameCount} 
                            fireIndicatorDate={fireIndicatorDate}
                     />
                 </div>
-                <div className='button-style'>
-
+                <div className="trigger-button-container">
+                    {fireIndicatorDate && <button className='trigger-container' disabled={playerHasShot}>
+                        <img className='trigger-button' onClick={capturePlayerShot} src={gunTrigger} alt='gun trigger avatar' />
+                    </button>}
+                    
                     <Link to='/'>
                         <button className='back-to-main-page'>Retire from Hunting?</button>
                     </Link>
-                    {viewInstructions()}
                 </div>
             </section>
         </div>

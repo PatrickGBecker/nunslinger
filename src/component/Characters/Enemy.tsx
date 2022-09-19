@@ -11,7 +11,6 @@ import DevilSpirit from "../../Assets/Models/Devil-Spirit-Side.png"
 import DyingBishop from "../../Assets/Models/Dying-Bishop.png";
 import DyingPope from "../../Assets/Models/Dying-Pope.png";
 import DyingPriest from "../../Assets/Models/Dying-Priest.png"
-import EnemyHealthBar from '../HealthBar/EnemyHealthBar';
 import ForwardBishop from "../../Assets/Models/Forward-Bishop.png";
 import ForwardPope from "../../Assets/Models/Forward-Pope.png";
 import ForwardPriest from "../../Assets/Models/Forward-Priest.png";
@@ -29,9 +28,12 @@ import RevivedPope from "../../Assets/Models/Revived-Pope.png";
 import RevivedPriest from "../../Assets/Models/Revived-Priest.png";
 
 interface ICharacterProps {
+    playerHealth: number;
     enemyHealth: number;
+    playerHasShot: boolean;
     enemyHasShot: boolean;
     youLose: boolean;
+    youWin: boolean;
     gameCount: number;
     fireIndicatorDate: number;
 }
@@ -131,14 +133,9 @@ useEffect(() => {
 
     return (
         <div className="right-side">
-            <div className="health-div">
-                <EnemyHealthBar/>
-            </div>
                 <div className="enemy-image">
                     <img src={enemyImage} />
                 </div>
-            
-            
         </div>
     );
 }
