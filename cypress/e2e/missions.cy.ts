@@ -6,18 +6,18 @@ describe('First visit to missions page', () => {
 
     it('Should take user to missions page and render all the correct elements', () => {
         cy.get('[class*=missions-container]')
-        cy.contains("Killing is like forgiveness, the more you do it - the easier it gets.")
+        cy.contains("Sister Beretta: Forgive me father, for I have sinned. My last confession was-")
     })
 
     it('Should be able to click the next button and render the next message', () => {
         cy.get('[class*=missions-container]')
         cy.get('[class*=DialogFooter]').click()
-        cy.contains("I always wipe demon blood on my clothes, it's a nasty habit.")
+        cy.contains("Father Felix: I know when it was, where the hell have you been for the last two years?")
     })
 
     it('Should be able to click the accept mission button and move to game page', () => {
         cy.get('[class*=start-button]').click()
-        cy.contains('instructions go here')
+        cy.contains('Time to exorcise!')
     })
     
 })

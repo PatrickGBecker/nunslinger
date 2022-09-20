@@ -1,15 +1,21 @@
+.music-player {
+    position: fixed;
+}
+
 progress {
     border-radius: 30px;
-    width: 85%;
+    width: 15vw;
     height: 75%;
     margin-top: 7.5%;
     margin-bottom: 10%;
+    border-style: outset;
 }
 
 progress::-webkit-progress-bar {
     background-color: #eaa846;
     border-radius: 15px;
     box-shadow: 0px 0px 2px 2px #eaa846;
+    border-style: outset;
 }
 
 progress::-webkit-progress-value {
@@ -21,18 +27,17 @@ progress::-webkit-progress-value {
 .enemy-health-bar {
     width: 15vw;
     height: 100%;
-    ;
-    background-image: url(../../Assets/Backgrounds/golden-new-video-frame-background-image-11.png);
-    background-repeat: no-repeat;
-    background-size: cover;
+    /* background-image: url(../../Assets/Backgrounds/golden-new-video-frame-background-image-11.png); */
+    /* background-repeat: no-repeat;
+    background-size: cover; */
 }
 
 .player-health-bar {
     width: 15vw;
     height: 100%;
-    background-image: url(../../Assets/Backgrounds/golden-new-video-frame-background-image-11.png);
-    background-repeat: no-repeat;
-    background-size: cover;
+    /* background-image: url(../../Assets/Backgrounds/golden-new-video-frame-background-image-11.png); */
+    /* background-repeat: no-repeat;
+    background-size: cover; */
 }
 
 .health-bar-container {
@@ -60,11 +65,11 @@ progress::-webkit-progress-value {
     width: 100vw;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     background-repeat: no-repeat;
     background-size: cover;
+    background-image: url('../../Assets/Backgrounds/battlePage.jpeg');
 }
-
 
 @font-face {
     font-family: Imported;
@@ -90,6 +95,8 @@ button {
 
 .fire-container {
     border: none;
+    display: flex;
+    justify-content: center;
 }
 
 .fire-indicator {
@@ -104,12 +111,12 @@ button {
     transform: translate(-50%, -50%);
     background-color: #880808;
     width: 40vw;
-    height: 50vh;
     border: 10px solid #181718;
     border-radius: 15px;
-    color: white
+    color: white;
+    text-align: center;
+    padding: 1rem;
 }
-
 
 
 .win-screen {
@@ -119,10 +126,11 @@ button {
     transform: translate(-50%, -50%);
     background-color: #880808;
     width: 40vw;
-    height: 50vh;
     border: 10px solid #181718;
     border-radius: 15px;
-    color: white
+    color: white;
+    text-align: center;
+    padding: 1rem;
 }
 
 .demon-exorcised {
@@ -138,9 +146,10 @@ button {
     transform: translate(-50%, -50%);
     background-color: #181718;
     width: 40vw;
-    height: 50vh;
     border-radius: 15px;
-    color: aliceblue
+    color: aliceblue;
+    text-align: center;
+    padding: 1rem;
 }
 
 .failure-buttons {
@@ -158,10 +167,6 @@ button {
 .back-to-main-page {
     align-self: flex-end;
 }
-
-/* .hidden {
-    display:none
-} */
 
 .secret-celebration-button {
     border: none;
