@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import Player from '../Characters/Player';
 import Enemy from '../Characters/Enemy';
-import gunTrigger from '../../Assets/Models/trigger.png'
-import gamePage from '../../Assets/Backgrounds/battlePage.jpeg'
+import gunTrigger from '../../Assets/Models/gunTrigger.png'
 import fireFont from '../../Assets/Fonts/FIRE.gif'
 import './Game.css';
 import Character from '../Characters/character';
 import { fetchApiDataEn, fetchApiDataLa } from '../fetch/fetchApiData';
 // import HealthBar from '../HealthBar/HealthBar'
-const music = require('../../Assets/Music/testMusic.mp3');
+const music = require('../../Assets/Music/victory-theme.mp3');
 
 interface ICharacterProps {
     playerHealth: number;
