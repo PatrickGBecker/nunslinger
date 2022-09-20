@@ -32,7 +32,7 @@ const MissionCutScenes = {
         `Sister Beretta: Truly.`,
         `Father Felix: Now that we know you're alive, it's safe to say you're our greatest living hero. Well, except for Jesus, Himself, of course. Speaking of which, would you-`,
         `Sister Beretta: No need to ask, Father. Where am I going and who am I saving?`,
-        `Father Felix: It's his Excellency Archbishop Mancine. He's showing all the signs and was last seen on a tour of the Catacombs of Paris. Must have slipped away and moved deeper underground. Whatever he's doing down there-`,
+        `Father Felix: It's his Excellency Archbishop Mancini. He's showing all the signs and was last seen on a tour of the Catacombs of Paris. Must have slipped away and moved deeper underground. Whatever he's doing down there-`,
         `Sister Beretta: We have to stop it. Queen to Bishop, checkmate. Ciao, Padre.`,
         `(Accept Mission)`
     ],
