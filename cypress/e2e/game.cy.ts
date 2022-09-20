@@ -24,8 +24,7 @@ describe('Starting NUNSLINGER', () => {
                 }
             ],
             weekday: "Nunday"
-        }
-        )
+        })
 
         cy.intercept('GET', 'http://calapi.inadiutorium.cz/api/v0/la/calendars/general-la/today', {
             date: "2022-09-19",
@@ -76,7 +75,8 @@ describe('Starting NUNSLINGER', () => {
         cy.get('[class*=trigger-button]').wait(4000).click({ multiple: true }).wait(4000)
         cy.get('[class*=trigger-button]').wait(4000).click({ multiple: true }).wait(4000)
         cy.get('[class*=trigger-button]').wait(4000).click({ multiple: true }).wait(4000)
-        cy.get('[class*=trigger-button]').wait(4000).click({ multiple: true }).wait(4000)
+        cy.get('[class*=trigger-button]').wait(4000).click().wait(4000)
+        cy.get('[class*=trigger-button]').wait(4000).click().wait(4000)
         cy.contains('h1', 'AND THEN THERE WERE NUN')
     })
 
@@ -84,7 +84,7 @@ describe('Starting NUNSLINGER', () => {
         cy.get('[class*=secret-celebration-button]').click({ force: true })
         cy.contains('NUNNIES HAVE ARRIVED')
         cy.get('[class*=toggle-languages]').click()
-        cy.contains('Feria secunda, hebdomada XXV per annum')
+        cy.contains('BUNNIES HAVE ARRIVED')
     })
 
 })
