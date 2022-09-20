@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import titleImage from '../../Assets/Backgrounds/cathedral.jpeg'
 import { Route, Link, Switch } from 'react-router-dom';
 import Missions from '../Missions/Missions';
 import Game from '../Game/Game';
-import BlackCatCity from "../../Assets/Models/BlackCatCity-Logo.png"
 import './App.css';
 
 const App = () => {

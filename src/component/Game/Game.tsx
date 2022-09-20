@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import ReactPlayer from 'react-player';
 import Player from '../Characters/Player';
 import Enemy from '../Characters/Enemy';
-import gunTrigger from '../../Assets/Models/trigger.png'
-import gamePage from '../../Assets/Backgrounds/battlePage.jpeg'
+import gunTrigger from '../../Assets/Models/gunTrigger.png'
 import fireFont from '../../Assets/Fonts/FIRE.gif'
 import './Game.css';
 import Character from '../Characters/character';
 import { fetchApiDataEn, fetchApiDataLa } from '../fetch/fetchApiData';
-// import HealthBar from '../HealthBar/HealthBar'
-const music = require('../../Assets/Music/testMusic.mp3');
 
 interface ICharacterProps {
     playerHealth: number;
@@ -58,20 +54,16 @@ const Game = (props: Props) => {
     useEffect(() => {
         fetchApiDataEn()
             .then(data => {
-                console.log("data: ", data)
                 setCelebrationEn(data.celebrations[0].title)
             })
-            //   .then(data => console.log('english', data))
             .catch(err => console.log(err))
     }, [])
 
     useEffect(() => {
         fetchApiDataLa()
             .then(data => {
-                console.log("data: ", data)
                 setCelebrationLa(data.celebrations[0].title)
             })
-            //   .then(data => console.log('latin', data))
             .catch(err => console.log(err))
     }, [])
 
@@ -81,7 +73,6 @@ const Game = (props: Props) => {
     }
 
     useEffect(() => {
-        console.log('propz', props.gameCount)
         if (props.gameCount === 0) {
             setInstructions(true)
         } else {
@@ -96,10 +87,6 @@ const Game = (props: Props) => {
 
     const startGame = () => {
         resetGameState()
-           //start fight music
-   //render forward facing models
-   //animate BCs Godspeed message
-   //render Countdown
         startRound()
     }
 
@@ -120,10 +107,8 @@ const Game = (props: Props) => {
     }
 
     const startRound = () => {
-        //guns out model
         resetRoundState()
         fireIndicator()
-        
     }
 
     const nextSpeed = () => {
@@ -133,14 +118,12 @@ const Game = (props: Props) => {
             setCurrentCharacter(bishop)
         } else if (props.missionCount === 2) {
             setCurrentCharacter(cardinal)
-        } else if (props.missionCount === 2) {
+        } else if (props.missionCount === 3) {
             setCurrentCharacter(pope)
         }
     }
 
     useEffect(() => {
-        console.log('missionCount', props.missionCount)
-        console.log('gameCount', props.gameCount)
         nextSpeed()
     }, [props.missionCount])
 
@@ -182,7 +165,6 @@ const Game = (props: Props) => {
     const fireIndicatorHelper = () => {
         setFireIndicatorDate(Date.now())
         enemyShoot()
-        // console.log('fire indicator shown')
     }
 
     const fireIndicator: any = () => {
@@ -198,25 +180,15 @@ const Game = (props: Props) => {
     const enemyShotHelper = () => {
         setEnemyShotDate(Date.now())
         setEnemyHasShot(true)
-        console.log('enemy has shot')
-        //change image from right-left guns
-   //gun sound effect
-
     }
 
     const enemyShoot: any = () => {
-        console.log(currentCharacter.minFireTime)
-        console.log(currentCharacter.maxFireTime)
         setTimeout(enemyShotHelper, shotRandomizer(currentCharacter.minFireTime, currentCharacter.maxFireTime))
     }
 
     const capturePlayerShot = () => {
         setPlayerShotDate(Date.now())
         setPlayerHasShot(true)
-        console.log('player has shot')
-        //change img from right/left shot
-   //gun sound effect
-
     }
 
     const compareShots = () => {
@@ -245,19 +217,9 @@ const Game = (props: Props) => {
         console.log(playerShotFirst)
         if (playerShotFirst === true) {
             setEnemyHealth(enemyMinusTwenty)
-            //change enemy to hit img for 1 sec
-       //play hurt sound effect
-
-            console.log('player shot first and hit')
         } else if (playerShotFirst === false) {
             setPlayerHealth(playerMinusTwenty)
-            //change player to hit img for 1 sec
-       //play hurt sound effect
-
-            console.log('enemy shot first and hit')
-        } else {
-            console.log('neither have shot first apparently?')
-        }
+        } 
     }
 
     const shotSecondHitCheck = () => {
@@ -266,19 +228,9 @@ const Game = (props: Props) => {
         let hitRoll = shotRandomizer(0, 3)
         if (hitRoll > 2 && playerShotFirst === false) {
             setEnemyHealth(enemyMinusTwenty)
-            //change enemy to hit img for 1 sec
-       //play hurt sound effect
-
-            console.log('player shot second and hit')
         } else if (hitRoll > 2 && playerShotFirst === true) {
             setPlayerHealth(playerMinusTwenty)
-            //change player to hit img for 1 sec
-       //play hurt sound effect
-
-            console.log('enemy shot second and hit')
-        } else {
-            console.log('someone shot second and missed')
-        }
+        } 
     }
 
     useEffect(() => {
@@ -290,46 +242,32 @@ const Game = (props: Props) => {
             gameLoss()
         } else if (enemyHealth <= 0) {
             gameWin()
-        } else if (playerHealth !== 100 && enemyHealth !== 100) {
+        } else if (playerHealth !== 100 || enemyHealth !== 100) {
             nextRound()
         }
     }
 
     const gameLoss = () => {
-        //stop fight music, start lacrimose music
-   //change to dying & dead imgs for a few secs
-   //play dying sound effects
-
-        console.log('you uhhh died')
         setYouLose(true)
     }
 
     const gameWin = () => {
-        //stop fight music, play victory music
-   //change to player img to praying img
-   //change enemy img to dying, spirit leaving, then revived img
-
-        console.log('you win nice lady')
         setYouWin(true)
         increaseMissionCount()
-   
     }
 
     const nextRound = () => {
-        //put damage animations here for 1 second
         setTimeout(() => {
             startRound()
         }, 1000);
     }
 
     const increaseMissionCount = () => {
-        console.log('pre', props.gameCount, props.missionCount)
         const missionIncremented = props.missionCount + 1
         props.setMissionCount(missionIncremented)
     }
 
     const increaseGameCount = () => {
-        console.log('pre', props.gameCount, props.missionCount)
         const gameIncremented = props.gameCount + 1
         props.setGameCount(gameIncremented)
         
@@ -344,23 +282,13 @@ const Game = (props: Props) => {
     }
 
     const showSecretCelebration = () => {
-        console.log('secretCelebration!!!')
         setSecretCelebration(true)
     }
+
 
     return (
         <div className="game-background">
             <section className='game'>
-                <ReactPlayer
-                    className='music-player'
-                    url={music}
-                    width='0vw'
-                    height='0vh'
-                    volume={0.0}
-                    loop={true}
-                    playing={true}
-                />
-
                 <div className='health-bar-container'>
                     <div className='player-health-bar'>
                         <progress className='player-healthBar' id="health" value={playerHealth} max="100"></progress>
@@ -377,7 +305,6 @@ const Game = (props: Props) => {
 
                 {youWin === true &&
                     <div className='win-screen'>
-                        <h1 className='demon-exorcised'>DEMON EXORCISED</h1>
                         <h2>Thanks for kicking ass for The Lord, I mean, for me! Here's your daily bread, sister!</h2>
                         <h2>Today is</h2>
                         <h2>{!isEnglish && celebrationLa}</h2>
@@ -417,7 +344,7 @@ const Game = (props: Props) => {
 
                 {youLose === true &&
                     <div className='lose-screen'>
-                        <h1>AND THEN THERE WERE NUN</h1>
+                        <h1 className='there-were-nun'>AND THEN THERE WERE NUN</h1>
                         <div className='failure-buttons'>
                             <button className='next-mission-button-failure' onClick={startGame}>Try Again</button>
                             <Link to='/'>
