@@ -1,5 +1,7 @@
 # NUNSLINGER
 
+<img width="127" alt="idea-box-logo" src="https://user-images.githubusercontent.com/96998327/191158895-2a5e85fb-1516-415e-b328-a25ca15f6b3f.png">
+
 
 ## Table of Contents
   - [Introduction](#introduction)
@@ -31,7 +33,8 @@
 
 ## Illustrations
 
-![]()
+<img width="127" alt="idea-box-logo" src="https://user-images.githubusercontent.com/96998327/191156779-0af5ef10-5953-48f2-9c86-f13d0fd0ad1f.png">
+<img width="127" alt="idea-box-logo" src="https://user-images.githubusercontent.com/96998327/191158713-c593685f-70fc-40d6-b365-5a03069d2ab0.png">
 
 ## Deployed Page
 
