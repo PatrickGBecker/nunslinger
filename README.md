@@ -28,7 +28,10 @@
   - CSS
 
 ## Features
-   - 
+   -Fast paced reaction-based gameplay!
+   -Over 40 mouse-drawn (yes, really) character models and portraits!
+   -4 demonically possessed clergymen to exorcise!
+   -Cutscenes! Deep lore! An ordained minister/sniper orangutan!
 
 ## Illustrations
 
@@ -42,7 +45,13 @@ Visit our published NUNSLINGER page [here]()
 
 ## Possible Future Extensions
 
-  - 
+  - Credit roll integration (credit sequence is currently present in the game files)
+  - Special time-reversing mechanics for the final boss
+  - A round opening intro sequence
+  - Conversations before and after battle
+  - Special killshot animations and voicelines
+  - A secret hidden final boss
+  - An ending
 
 ## Organizational Resources
 - [Docs](https://docs.google.com/document/d/1ejd72VJvz1fBGo9zb4sQglaZmy-ikIijC0kNotdj_ZA/edit)
