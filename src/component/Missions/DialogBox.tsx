@@ -100,14 +100,14 @@ const DialogBox = ({ gameCount }: Props) => {
     };
     
     return (
-        <div className="DialogWindow">
-            <div className="DialogTitle"/>
-            <Message message={messages[currentMessage][currentIndex]} key={currentMessage} />
-            <div onClick={handleClick} className="DialogFooter">
-                Next
+        <div className='dialog-container'>
+            <div className="DialogWindow">
+                <div className="DialogTitle"/>
+                <Message message={messages[currentMessage][currentIndex]} key={currentMessage} />
             </div>
+            <button onClick={handleClick} className='next-button'>Next</button>  
         </div>
     );
-    };
+};
 
 export default DialogBox;

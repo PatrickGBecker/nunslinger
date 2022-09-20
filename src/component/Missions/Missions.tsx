@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
-import confessionImage from '../../Assets/Backgrounds/confess.jpeg'
+import confessionImage from '../../Assets/Backgrounds/confessMission.png'
 import DialogBox from '../Missions/DialogBox';
 import './Missions.css';
 
@@ -17,9 +17,7 @@ const Missions = (props: Props) => {
                 <div className='dialog-box-container'>
                 <DialogBox missionCount={props.missionCount} gameCount={props.gameCount}/>
                 </div>
-                
                 <div className='button-style'>
-                    <button className='next-button'>Next</button>
                     <Link to='/game'>
                         <button className='start-button'>Accept Mission</button>
                     </Link>

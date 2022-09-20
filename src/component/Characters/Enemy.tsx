@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player'
-import Character from './character';
 import Demon1Bishop from "../../Assets/Models/Demon-1-Bishop.png";
 import Demon2Bishop from "../../Assets/Models/Demon-2-Bishop.png";
 import Demon1Cardinal from "../../Assets/Models/Demon-Leaving1-Cardinal.png";
@@ -130,12 +129,10 @@ useEffect(() => {
     if (enemyHasShot) {
         console.log("enemyTest: ", enemyHasShot)
         setImage(images[currentCharacter].shooting1Image)
-        setShotFX(true)
-        setGruntFX(false)
+        handleShotFX()
     } else if (fireIndicatorDate) {
         setImage(images[currentCharacter].shooting2Image)
-        setShotFX(true)
-        setShotFX(false)
+        handleShotFX()
     }
 }, [enemyHasShot, fireIndicatorDate])
     
@@ -143,7 +140,7 @@ useEffect(() => {
  useEffect(() => {
      if (enemyHealth === 0) {
         setImage(images[currentCharacter].dyingImage)
-        setDeathFX(true)
+        handleDeathFX()
         setTimeout(() => {
             setImage(images[currentCharacter].demonLeaving1)
         }, 1000)
@@ -155,7 +152,7 @@ useEffect(() => {
         }, 3000)
      } else if (enemyHealth < initialEnemyHealth) {
          setImage(images[currentCharacter].hitImage)
-         setGruntFX(true)
+         handleGruntFX()
          setInitialEnemyHealth(enemyHealth)
      }
  }, [enemyHealth])      
@@ -165,6 +162,27 @@ useEffect(() => {
         setImage(images[currentCharacter].forwardImage)
     }
 }, [youLose])
+
+const handleShotFX = () => {
+    setShotFX(true)
+    setTimeout(() => {
+        setShotFX(false)
+    }, 1000)
+}
+
+const handleGruntFX = () => {
+    setGruntFX(true)
+    setTimeout(() => {
+        setGruntFX(false)
+    }, 1000)
+}
+
+const handleDeathFX = () => {
+    setDeathFX(true)
+    setTimeout(() => {
+        setDeathFX(false)
+    }, 4000)
+}
 
     return (
         <div>
