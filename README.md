@@ -34,6 +34,7 @@
 
 <img width="500" alt="idea-box-logo" src="https://user-images.githubusercontent.com/96998327/191156779-0af5ef10-5953-48f2-9c86-f13d0fd0ad1f.png">
 <img width="500" alt="idea-box-logo" src="https://user-images.githubusercontent.com/96998327/191158713-c593685f-70fc-40d6-b365-5a03069d2ab0.png">
+<img width="500" alt="idea-box-logo" src="https://user-images.githubusercontent.com/96998327/191161306-5ce36497-90b7-4449-b4a7-e5966efff65f.png">
 
 ## Deployed Page
 
