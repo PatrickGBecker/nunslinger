@@ -10,7 +10,6 @@
   - [Illustrations](#illustrations)
   - [Deployed Page](#deployed-page)
   - [Possible Future Extensions](#possible-future-extensions)
-  - [Set Up](#set-up)
   - [Organizational Resources](#organizational-resources)
   - [Sources](#sources)
   - [Contributors](#contributors)
@@ -43,10 +42,6 @@ Visit our published NUNSLINGER page [here]()
 ## Possible Future Extensions
 
   - 
-
-## Set Up
-
-1. 
 
 ## Organizational Resources
 - [Docs](https://docs.google.com/document/d/1ejd72VJvz1fBGo9zb4sQglaZmy-ikIijC0kNotdj_ZA/edit)
