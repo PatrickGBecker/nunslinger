@@ -3,10 +3,17 @@ import { Link } from 'react-router-dom';
 import Player from '../Characters/Player';
 import Enemy from '../Characters/Enemy';
 import gunTrigger from '../../Assets/Models/gunTrigger.png'
+import gamePage from '../../Assets/Backgrounds/battlePage.jpeg'
+import bishopBackground from '../../Assets/Backgrounds/bishop-background.png'
+import cardinalBackground from '../../Assets/Backgrounds/cardinal-background.jpeg'
+import popeBackground from '../../Assets/Backgrounds/pope-background.jpeg'
 import fireFont from '../../Assets/Fonts/FIRE.gif'
 import './Game.css';
 import Character from '../Characters/character';
 import { fetchApiDataEn, fetchApiDataLa } from '../fetch/fetchApiData';
+
+
+const battleBackgrounds = [gamePage, bishopBackground, cardinalBackground, popeBackground]
 
 interface ICharacterProps {
     playerHealth: number;
@@ -48,6 +55,7 @@ const Game = (props: Props) => {
     const [celebrationLa, setCelebrationLa] = useState<string>('')
     const [isEnglish, setIsEnglish] = useState<boolean>(true)
     const [secretCelebration, setSecretCelebration] = useState<boolean>(false)
+    const [backgrounds, setBackgrounds] = useState<any>(battleBackgrounds[0])
     let playerShotFirst = false
 
 
@@ -111,6 +119,23 @@ const Game = (props: Props) => {
         fireIndicator()
     }
 
+    useEffect(() => {
+        nextSpeed()
+        nextBackGround()
+    }, [props.missionCount, props.gameCount])
+
+    const nextBackGround = () => {
+        if (props.gameCount === 0) {
+            setBackgrounds(battleBackgrounds[0])
+        } else if (props.gameCount === 1) {
+            setBackgrounds(battleBackgrounds[1])
+        } else if (props.gameCount === 2) {
+            setBackgrounds(battleBackgrounds[2])
+        } else if (props.gameCount === 3) {
+            setBackgrounds(battleBackgrounds[3])
+        }
+    }
+
     const nextSpeed = () => {
         if (props.missionCount === 0) {
             setCurrentCharacter(priest)
@@ -124,11 +149,6 @@ const Game = (props: Props) => {
     }
 
     useEffect(() => {
-        nextSpeed()
-    }, [props.missionCount])
-
-    useEffect(() => {
-        // console.log('useEffect triggered')
         if (playerHasShot && enemyHasShot === true) {
             compareShots()
         }
@@ -219,7 +239,8 @@ const Game = (props: Props) => {
             setEnemyHealth(enemyMinusTwenty)
         } else if (playerShotFirst === false) {
             setPlayerHealth(playerMinusTwenty)
-        } 
+        } else {
+        }
     }
 
     const shotSecondHitCheck = () => {
@@ -230,7 +251,8 @@ const Game = (props: Props) => {
             setEnemyHealth(enemyMinusTwenty)
         } else if (hitRoll > 2 && playerShotFirst === true) {
             setPlayerHealth(playerMinusTwenty)
-        } 
+        } else {
+        }
     }
 
     useEffect(() => {
@@ -254,6 +276,7 @@ const Game = (props: Props) => {
     const gameWin = () => {
         setYouWin(true)
         increaseMissionCount()
+
     }
 
     const nextRound = () => {
@@ -270,7 +293,6 @@ const Game = (props: Props) => {
     const increaseGameCount = () => {
         const gameIncremented = props.gameCount + 1
         props.setGameCount(gameIncremented)
-        
     }
 
     const toggleLanguages = () => {
@@ -285,10 +307,9 @@ const Game = (props: Props) => {
         setSecretCelebration(true)
     }
 
-
     return (
         <div className="game-background">
-            <section className='game'>
+            <section className='game' style={{ backgroundImage: `url(${backgrounds}` }}>
                 <div className='health-bar-container'>
                     <div className='player-health-bar'>
                         <progress className='player-healthBar' id="health" value={playerHealth} max="100"></progress>
@@ -305,6 +326,7 @@ const Game = (props: Props) => {
 
                 {youWin === true &&
                     <div className='win-screen'>
+                        <h1 className='demon-exorcised'>DEMON EXORCISED</h1>
                         <h2>Thanks for kicking ass for The Lord, I mean, for me! Here's your daily bread, sister!</h2>
                         <h2>Today is</h2>
                         <h2>{!isEnglish && celebrationLa}</h2>
@@ -315,7 +337,7 @@ const Game = (props: Props) => {
                                 <button className='next-mission-button' onClick={increaseGameCount}>Next Mission</button>
                             </Link>
                             <Link to='/'>
-                            <button className='back-to-main-page'>Retire from Hunting?</button>
+                                <button className='back-to-main-page'>Retire from Hunting?</button>
                             </Link>
                             <button className='toggle-languages' onClick={toggleLanguages}> toggle languages </button>
                         </div>
@@ -335,7 +357,7 @@ const Game = (props: Props) => {
                                 <button className='next-mission-button' onClick={increaseGameCount}>Next Mission</button>
                             </Link>
                             <Link to='/'>
-                            <button className='back-to-main-page'>Retire from Hunting?</button>
+                                <button className='back-to-main-page'>Retire from Hunting?</button>
                             </Link>
                             <button className='toggle-languages' onClick={toggleLanguages}> toggle languages </button>
                         </div>
@@ -344,11 +366,11 @@ const Game = (props: Props) => {
 
                 {youLose === true &&
                     <div className='lose-screen'>
-                        <h1 className='there-were-nun'>AND THEN THERE WERE NUN</h1>
+                        <h1>AND THEN THERE WERE NUN</h1>
                         <div className='failure-buttons'>
                             <button className='next-mission-button-failure' onClick={startGame}>Try Again</button>
                             <Link to='/'>
-                            <button className='back-to-main-page'>Retire from Hunting?</button>
+                                <button className='back-to-main-page'>Retire from Hunting?</button>
                             </Link>
                         </div>
                     </div>
@@ -357,19 +379,29 @@ const Game = (props: Props) => {
                 <div className="trigger-button-container">
                     {fireIndicatorDate ? <button className='trigger-container' disabled={playerHasShot}>
                         <img className='trigger-button' onClick={capturePlayerShot} src={gunTrigger} alt='gun trigger avatar' />
-                    </button>: null}
+                    </button> : null}
                 </div>
 
                 <div className="model-container">
-                <Player playerHealth={playerHealth} enemyHealth={enemyHealth}
-                            playerHasShot={playerHasShot} enemyHasShot={enemyHasShot}
-                            youWin={youWin} youLose={youLose} gameCount={props.gameCount} 
-                            fireIndicatorDate={fireIndicatorDate}
+                    <Player
+                        playerHealth={playerHealth}
+                        enemyHealth={enemyHealth}
+                        playerHasShot={playerHasShot}
+                        enemyHasShot={enemyHasShot}
+                        youWin={youWin}
+                        youLose={youLose}
+                        gameCount={props.gameCount}
+                        fireIndicatorDate={fireIndicatorDate}
                     />
-                    <Enemy playerHealth={playerHealth} enemyHealth={enemyHealth}
-                           playerHasShot={playerHasShot} enemyHasShot={enemyHasShot}
-                           youWin={youWin} youLose={youLose} gameCount={props.gameCount} 
-                           fireIndicatorDate={fireIndicatorDate}
+                    <Enemy
+                        playerHealth={playerHealth}
+                        enemyHealth={enemyHealth}
+                        playerHasShot={playerHasShot}
+                        enemyHasShot={enemyHasShot}
+                        youWin={youWin}
+                        youLose={youLose}
+                        gameCount={props.gameCount}
+                        fireIndicatorDate={fireIndicatorDate}
                     />
                 </div>
 
