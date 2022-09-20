@@ -117,10 +117,29 @@ const Game = (props: Props) => {
         //guns out model
         resetRoundState()
         fireIndicator()
+        
+    }
+
+    const nextSpeed = () => {
+        if (props.missionCount === 0) {
+            setCurrentCharacter(priest)
+        } else if (props.missionCount === 1) {
+            setCurrentCharacter(bishop)
+        } else if (props.missionCount === 2) {
+            setCurrentCharacter(cardinal)
+        } else if (props.missionCount === 2) {
+            setCurrentCharacter(pope)
+        }
     }
 
     useEffect(() => {
-        console.log('useEffect triggered')
+        console.log('missionCount', props.missionCount)
+        console.log('gameCount', props.gameCount)
+        nextSpeed()
+    }, [props.missionCount])
+
+    useEffect(() => {
+        // console.log('useEffect triggered')
         if (playerHasShot && enemyHasShot === true) {
             compareShots()
         }
@@ -162,7 +181,7 @@ const Game = (props: Props) => {
     const fireIndicatorHelper = () => {
         setFireIndicatorDate(Date.now())
         enemyShoot()
-        console.log('fire indicator shown')
+        // console.log('fire indicator shown')
     }
 
     const fireIndicator: any = () => {
@@ -312,6 +331,7 @@ const Game = (props: Props) => {
         console.log('pre', props.gameCount, props.missionCount)
         const gameIncremented = props.gameCount + 1
         props.setGameCount(gameIncremented)
+        
     }
 
     const toggleLanguages = () => {
@@ -329,7 +349,7 @@ const Game = (props: Props) => {
 
     return (
         <div className="game-background">
-            <section className='game' style={{ backgroundImage: `url(${gamePage}` }}>
+            <section className='game'>
                 <ReactPlayer
                     className='music-player'
                     url={music}
@@ -350,7 +370,7 @@ const Game = (props: Props) => {
                     </div>
                 </div>
                 <div className='fire-container'>
-                    {fireIndicatorDate && <img className='fire-indicator' src={fireFont} />}
+                    {fireIndicatorDate ? <img className='fire-indicator' src={fireFont} /> : null}
                     {viewInstructions()}
                 </div>
 
@@ -407,9 +427,9 @@ const Game = (props: Props) => {
                 }
 
                 <div className="trigger-button-container">
-                    {fireIndicatorDate && <button className='trigger-container' disabled={playerHasShot}>
+                    {fireIndicatorDate ? <button className='trigger-container' disabled={playerHasShot}>
                         <img className='trigger-button' onClick={capturePlayerShot} src={gunTrigger} alt='gun trigger avatar' />
-                    </button>}
+                    </button>: null}
                 </div>
 
                 <div className="model-container">
