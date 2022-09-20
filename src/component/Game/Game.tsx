@@ -80,12 +80,18 @@ const Game = (props: Props) => {
     }
 
     useEffect(() => {
+        console.log('propz', props.gameCount)
         if (props.gameCount === 0) {
             setInstructions(true)
         } else {
             startGame()
         }
     }, [])
+
+    const closeInstructionsStartGame = () => {
+        hideInstructions()
+        startGame()
+    }
 
     const startGame = () => {
         resetGameState()
@@ -125,10 +131,6 @@ const Game = (props: Props) => {
         }
     }, [playerHasShot, enemyHasShot])
 
-    const closeInstructionsStartGame = () => {
-        hideInstructions()
-        startGame()
-    }
 
     const viewInstructions = () => {
 
@@ -143,7 +145,6 @@ const Game = (props: Props) => {
                     <h2>Your life force and the demon's hold on its possessee will deplete when shot.</h2>
                     <h2>Outgun your demonic foe and save that priest!</h2>
                     <h2>GODSPEED!</h2>
-                    
                     <button className='dismiss-instructions-button' onClick={closeInstructionsStartGame}>Less reading, more shooting</button>
                 </div>
             )
@@ -269,7 +270,7 @@ const Game = (props: Props) => {
             gameLoss()
         } else if (enemyHealth <= 0) {
             gameWin()
-        } else {
+        } else if (playerHealth !== 100 && enemyHealth !== 100) {
             nextRound()
         }
     }
