@@ -37,12 +37,10 @@ const [deathFX, setDeathFX] = useState(false);
     useEffect(() => {
         if (playerHasShot) {
             setImage(Shooting1Beretta)
-            setShotFX(true)
-            setGruntFX(false)
+            handleShotFX()
         } else if (fireIndicatorDate) {
             setImage(Shooting2Beretta)
-            setShotFX(true)
-            setShotFX(false)
+            handleShotFX()
         }
     }, [playerHasShot, fireIndicatorDate])
 
@@ -50,13 +48,13 @@ const [deathFX, setDeathFX] = useState(false);
     useEffect(() => {
         if (playerHealth === 0) {
             setImage(DyingBeretta)
-            setDeathFX(true)
+            handleDeathFX()
             setTimeout(() => {
                 setImage(DeadBeretta)
             }, 1000)
         } else if (playerHealth < initialEnemyHealth) {
             setImage(HitBeretta)
-            setGruntFX(true)
+            handleGruntFX()
             setInitialPlayerHealth(playerHealth)
         }
     }, [playerHealth])
@@ -66,7 +64,29 @@ const [deathFX, setDeathFX] = useState(false);
             setImage(PrayBeretta)
         }
     }, [youWin])
-       //add bishop, pope to useState types^^^^
+      
+   
+    const handleShotFX = () => {
+        setShotFX(true)
+        setTimeout(() => {
+            setShotFX(false)
+        }, 1000)
+    }
+
+    const handleGruntFX = () => {
+        setGruntFX(true)
+        setTimeout(() => {
+            setGruntFX(false)
+        }, 1000)
+    }
+
+    const handleDeathFX = () => {
+        setDeathFX(true)
+        setTimeout(() => {
+            setDeathFX(false)
+        }, 4000)
+    }
+
 
      return (
         <div>
