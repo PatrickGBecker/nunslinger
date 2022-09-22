@@ -126,15 +126,14 @@ button {
     padding: 1rem;
 }
 
-.demon-exorcised {
-    width: 60%;
-    height: 40%;
-    margin: 5vh;
+.buddy-Christ {
+    height: 10vh;
+    width: 8vw;
 }
 
 .lose-screen {
     position: absolute;
-    top: 20%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #181718;

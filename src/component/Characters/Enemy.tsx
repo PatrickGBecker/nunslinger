@@ -132,7 +132,6 @@ useEffect(() => {
         handleShotFX()
     } else if (fireIndicatorDate) {
         setImage(images[currentCharacter].shooting2Image)
-        handleShotFX()
     }
 }, [enemyHasShot, fireIndicatorDate])
     
