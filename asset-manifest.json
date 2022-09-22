@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/nunslinger/static/css/main.54fc8c4a.css",
-    "main.js": "/nunslinger/static/js/main.6cdc03ba.js",
+    "main.js": "/nunslinger/static/js/main.733a6038.js",
     "static/js/787.64b8e61e.chunk.js": "/nunslinger/static/js/787.64b8e61e.chunk.js",
     "static/media/death-theme.mp3": "/nunslinger/static/media/death-theme.ef031cf54cc4007561d1.mp3",
     "static/media/bishop-background.png": "/nunslinger/static/media/bishop-background.9ae4fdd09d95ee6f7053.png",
@@ -62,11 +62,11 @@
     "static/media/Shoot-Right-Beretta.png": "/nunslinger/static/media/Shoot-Right-Beretta.31b06c94bcfbf152684d.png",
     "index.html": "/nunslinger/index.html",
     "main.54fc8c4a.css.map": "/nunslinger/static/css/main.54fc8c4a.css.map",
-    "main.6cdc03ba.js.map": "/nunslinger/static/js/main.6cdc03ba.js.map",
+    "main.733a6038.js.map": "/nunslinger/static/js/main.733a6038.js.map",
     "787.64b8e61e.chunk.js.map": "/nunslinger/static/js/787.64b8e61e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.54fc8c4a.css",
-    "static/js/main.6cdc03ba.js"
+    "static/js/main.733a6038.js"
   ]
 }
