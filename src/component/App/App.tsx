@@ -14,10 +14,10 @@ const App = () => {
   return (
     <div className='App'>
       <Switch>
-        <Route exact path='/nunslinger/' >
+        <Route exact path='/' >
           <div className='title-page'>
             <h1 className='main-title'>NUNSLINGER</h1>
-            <Link to='/missions/'>
+            <Link to='/missions'>
               <div className='play-game-button-container'>
                 <button className='play-game-button'>Confess Your Sins</button>
               </div>
@@ -28,11 +28,11 @@ const App = () => {
           </div>
         </Route>
 
-        <Route exact path='/missions/'>
+        <Route exact path='/missions'>
           <Missions missionCount={missionCount} gameCount={gameCount} />
         </Route>
 
-        <Route exact path='/game/'>
+        <Route exact path='/game'>
           <Game
             missionCount={missionCount}
             gameCount={gameCount}

@@ -348,10 +348,10 @@ const Game = (props: Props) => {
                         <h2>{isEnglish && celebrationEn}</h2>
                         <h2>Rejoice and be glad, because great is your reward in heaven!</h2>
                         <div className='win-screen-buttons}'>
-                            <Link to='/missions/'>
+                            <Link to='/missions'>
                                 <button className='next-mission-button' onClick={increaseGameCount}>Next Mission</button>
                             </Link>
-                            <Link to='/nunslinger/'>
+                            <Link to='/'>
                             <button className='back-to-main-page'>Retire from Hunting?</button>
                             </Link>
                             <button className='toggle-languages' onClick={toggleLanguages}> toggle languages </button>
@@ -368,10 +368,10 @@ const Game = (props: Props) => {
                         <h2>{isEnglish && celebrationEn}</h2>
                         <h2>Rejoice and be glad, because great is your reward in heaven!</h2>
                         <div className='win-screen-buttons}'>
-                            <Link to='/missions/'>
+                            <Link to='/missions'>
                                 <button className='next-mission-button' onClick={increaseGameCount}>Next Mission</button>
                             </Link>
-                            <Link to='/nunslinger/'>
+                            <Link to='/'>
                             <button className='back-to-main-page'>Retire from Hunting?</button>
                             </Link>
                             <button className='toggle-languages' onClick={toggleLanguages}> toggle languages </button>
@@ -393,7 +393,7 @@ const Game = (props: Props) => {
                         <h1 className='there-were-nun'>AND THEN THERE WERE NUN</h1>
                         <div className='failure-buttons'>
                             <button className='next-mission-button-failure' onClick={startGame}>Try Again</button>
-                            <Link to='/nunslinger/'>
+                            <Link to='/'>
                             <button className='back-to-main-page'>Retire from Hunting?</button>
                             </Link>
                         </div>
