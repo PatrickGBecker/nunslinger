@@ -84,9 +84,9 @@ const DialogBox = ({ gameCount }: Props) => {
                 setCurrentMessage('mission1')
             } else if (gameCount === 1) {
                 setCurrentMessage('mission2')
-            } else if (gameCount === 3) {
+            } else if (gameCount === 2) {
                 setCurrentMessage('mission3')
-            } else if (gameCount === 4) {
+            } else if (gameCount === 3) {
                 setCurrentMessage('mission4')
             }
         }, [gameCount])

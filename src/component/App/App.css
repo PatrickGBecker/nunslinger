@@ -48,13 +48,6 @@ h1 {
   box-shadow: 0px 0px 2px 2px whitesmoke;
 }
 
-.play-game-button:hover,
-.play-game-button:focus {
-    box-shadow:
-        inset -3.5em 0 0 0 var(--hover),
-        inset 3.5em 0 0 0 var(--hover);
-        color: red;
-    }
 
 .logo-container {
   justify-content: flex-start;

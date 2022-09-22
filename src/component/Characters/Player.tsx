@@ -40,7 +40,6 @@ const [deathFX, setDeathFX] = useState(false);
             handleShotFX()
         } else if (fireIndicatorDate) {
             setImage(Shooting2Beretta)
-            handleShotFX()
         }
     }, [playerHasShot, fireIndicatorDate])
 
