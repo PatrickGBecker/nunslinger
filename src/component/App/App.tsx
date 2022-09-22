@@ -28,7 +28,7 @@ const App = () => {
           </div>
         </Route>
 
-        <Route exact path='/nunslinger/missions'>
+        <Route exact path='/missions'>
           <Missions missionCount={missionCount} gameCount={gameCount} />
         </Route>
 
