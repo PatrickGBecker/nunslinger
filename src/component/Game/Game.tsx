@@ -8,9 +8,16 @@ import BuddyChrist from '../../Assets/Models/BuddyChrist.png'
 import fireFont from '../../Assets/Fonts/FIRE.gif'
 import './Game.css';
 import Character from '../Characters/character';
+import gamePage from '../../Assets/Backgrounds/battlePage.jpeg'
+import bishopBackground from '../../Assets/Backgrounds/bishop-background.png'
+import cardinalBackground from '../../Assets/Backgrounds/cardinal-background.jpeg'
+import popeBackground from '../../Assets/Backgrounds/pope-background.jpeg'
 import { fetchApiDataEn, fetchApiDataLa } from '../fetch/fetchApiData';
 const VictoryTheme = require('../../Assets/Music/victory-theme.mp3')
 const DeathTheme = require('../../Assets/Music/death-theme.mp3')
+
+
+const battleBackgrounds = [gamePage, bishopBackground, cardinalBackground, popeBackground]
 
 interface ICharacterProps {
     playerHealth: number;
@@ -52,7 +59,9 @@ const Game = (props: Props) => {
     const [celebrationLa, setCelebrationLa] = useState<string>('')
     const [isEnglish, setIsEnglish] = useState<boolean>(true)
     const [secretCelebration, setSecretCelebration] = useState<boolean>(false)
+    const [backgrounds, setBackgrounds] = useState<any>(battleBackgrounds[0])
     let playerShotFirst = false
+
 
 
     useEffect(() => {
@@ -115,6 +124,23 @@ const Game = (props: Props) => {
         fireIndicator()
     }
 
+    useEffect(() => {
+        nextSpeed()
+        nextBackGround()
+    }, [props.missionCount, props.gameCount])
+
+    const nextBackGround = () => {
+        if (props.gameCount === 0) {
+            setBackgrounds(battleBackgrounds[0])
+        } else if (props.gameCount === 1) {
+            setBackgrounds(battleBackgrounds[1])
+        } else if (props.gameCount === 2) {
+            setBackgrounds(battleBackgrounds[2])
+        } else if (props.gameCount === 3) {
+            setBackgrounds(battleBackgrounds[3])
+        }
+    }
+
     const nextSpeed = () => {
         if (props.missionCount === 0) {
             setCurrentCharacter(priest)
@@ -126,10 +152,6 @@ const Game = (props: Props) => {
             setCurrentCharacter(pope)
         }
     }
-
-    useEffect(() => {
-        nextSpeed()
-    }, [props.missionCount])
 
     useEffect(() => {
         // console.log('useEffect triggered')
@@ -293,7 +315,7 @@ const Game = (props: Props) => {
     return (
         
         <div className="game-background">
-            <section className='game'>
+            <section className='game' style={{ backgroundImage: `url(${backgrounds}` }}>
                 <div className='health-bar-container'>
                     <div className='player-health-bar'>
                         <progress className='player-healthBar' id="health" value={playerHealth} max="100"></progress>
