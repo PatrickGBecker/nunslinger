@@ -1,7 +1,7 @@
 {
   "name": "nunslinger",
   "version": "0.1.0",
-  "homepage":"https://nairnairnair.github.io/nunslinger",
+  "homepage": "https://patrickgbecker.github.io/nunslinger",
   "private": true,
   "dependencies": {
     "@react-spring/types": "^9.5.4",
@@ -22,10 +22,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "cypress": "cypress open",
     "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
