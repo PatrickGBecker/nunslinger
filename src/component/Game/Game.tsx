@@ -11,7 +11,7 @@ import Character from '../Characters/character';
 import { fetchApiDataEn, fetchApiDataLa } from '../fetch/fetchApiData';
 const VictoryTheme = require('../../Assets/Music/victory-theme.mp3')
 const DeathTheme = require('../../Assets/Music/death-theme.mp3')
-const BattleTheme = require('../../Assets/Music/battle-theme.mp3')
+
 interface ICharacterProps {
     playerHealth: number;
     enemyHealth: number;
@@ -309,7 +309,6 @@ const Game = (props: Props) => {
                 </div>
 
                 {youWin === true &&
-                    
                     <div className='win-screen'>
                         <ReactPlayer
                             className='music-player'

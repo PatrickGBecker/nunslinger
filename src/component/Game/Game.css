@@ -62,7 +62,6 @@ progress::-webkit-progress-value {
     justify-content: space-between;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url('../../Assets/Backgrounds/battlePage.jpeg');
 }
 
 @font-face {
