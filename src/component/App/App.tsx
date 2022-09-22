@@ -32,7 +32,7 @@ const App = () => {
           <Missions missionCount={missionCount} gameCount={gameCount} />
         </Route>
 
-        <Route exact path='/nunslinger/game/'>
+        <Route exact path='/game/'>
           <Game
             missionCount={missionCount}
             gameCount={gameCount}
