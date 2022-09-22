@@ -18,7 +18,7 @@ const Missions = (props: Props) => {
                 <DialogBox missionCount={props.missionCount} gameCount={props.gameCount}/>
                 </div>
                 <div className='button-style'>
-                    <Link to='/game'>
+                    <Link to='/game/'>
                         <button className='start-button'>Accept Mission</button>
                     </Link>
                 </div>

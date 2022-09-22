@@ -348,7 +348,7 @@ const Game = (props: Props) => {
                         <h2>{isEnglish && celebrationEn}</h2>
                         <h2>Rejoice and be glad, because great is your reward in heaven!</h2>
                         <div className='win-screen-buttons}'>
-                            <Link to='/missions'>
+                            <Link to='/missions/'>
                                 <button className='next-mission-button' onClick={increaseGameCount}>Next Mission</button>
                             </Link>
                             <Link to='/nunslinger/'>
@@ -368,7 +368,7 @@ const Game = (props: Props) => {
                         <h2>{isEnglish && celebrationEn}</h2>
                         <h2>Rejoice and be glad, because great is your reward in heaven!</h2>
                         <div className='win-screen-buttons}'>
-                            <Link to='/missions'>
+                            <Link to='/missions/'>
                                 <button className='next-mission-button' onClick={increaseGameCount}>Next Mission</button>
                             </Link>
                             <Link to='/nunslinger/'>
