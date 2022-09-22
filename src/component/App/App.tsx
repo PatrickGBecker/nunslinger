@@ -14,7 +14,7 @@ const App = () => {
   return (
     <div className='App'>
       <Switch>
-        <Route path='/' >
+        <Route exact path='https://nairnairnair.github.io/nunslinger/' >
           <div className='title-page'>
             <h1 className='main-title'>NUNSLINGER</h1>
             <Link to='/missions'>
@@ -28,11 +28,11 @@ const App = () => {
           </div>
         </Route>
 
-        <Route path='/missions'>
+        <Route exact path='https://nairnairnair.github.io/nunslinger/missions'>
           <Missions missionCount={missionCount} gameCount={gameCount} />
         </Route>
 
-        <Route path='/game'>
+        <Route exact path='https://nairnairnair.github.io/nunslinger/game'>
           <Game
             missionCount={missionCount}
             gameCount={gameCount}
