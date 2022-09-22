@@ -127,7 +127,10 @@ button {
     padding: 1rem;
 }
 
-
+.buddy-Christ {
+    height: 10vh;
+    width: 8vw;
+}
 
 .lose-screen {
     position: absolute;

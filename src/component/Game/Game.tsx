@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Player from '../Characters/Player';
 import Enemy from '../Characters/Enemy';
 import gunTrigger from '../../Assets/Models/gunTrigger.png'
+import BuddyChrist from '../../Assets/Models/BuddyChrist.png'
 import fireFont from '../../Assets/Fonts/FIRE.gif'
 import './Game.css';
 import Character from '../Characters/character';
@@ -320,6 +321,7 @@ const Game = (props: Props) => {
                             playing={true}
                         />
                         <h2>Thanks for kicking ass for The Lord, I mean, for me! Here's your daily bread, sister!</h2>
+                        <img className='buddy-christ' src={BuddyChrist}/>
                         <h2>Today is</h2>
                         <h2>{!isEnglish && celebrationLa}</h2>
                         <h2>{isEnglish && celebrationEn}</h2>
