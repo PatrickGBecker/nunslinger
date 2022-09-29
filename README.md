@@ -41,7 +41,7 @@
 
 ## Deployed Page
 
-Visit our published NUNSLINGER page [here]()
+Visit our published NUNSLINGER page [here](https://patrickgbecker.github.io/nunslinger/)
 
 ## Possible Future Extensions
 
